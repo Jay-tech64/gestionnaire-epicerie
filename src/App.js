@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import SignIn from "./components/SignIn";
 import Dashboard from "./components/Dashboard";
+import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/">
-            <SignIn />
+            <Home />
           </Route>
           <Route path="/dashboard">
             <Dashboard />

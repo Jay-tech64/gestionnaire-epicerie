@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../index.css";
 import { useHistory } from "react-router-dom";
 
-const SignIn = () => {
+const SignIn = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
@@ -31,7 +31,7 @@ const SignIn = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Gestionnaire d'épicerie</h1>
+      <h1>{props.title}</h1>
 
       <label htmlFor="username">Identifiant</label>
       <input
@@ -65,6 +65,9 @@ const SignIn = () => {
       ) : (
         <button>S'inscrire</button>
       )}
+
+      <p>Vous avez déjà un compte?</p>
+      <button onClick={props.changeForm}>Se connecter</button>
     </form>
   );
 };
