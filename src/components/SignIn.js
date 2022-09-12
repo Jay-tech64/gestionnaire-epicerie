@@ -2,14 +2,19 @@ import { useState } from "react";
 import "../index.css";
 import { useHistory } from "react-router-dom";
 
-const Login = () => {
+const SignIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [verifyPassword, setVerifyPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (password !== verifyPassword) {
+      alert("Le mot de passe n'est pas le même");
+      return;
+    }
     const loginInfo = { username, password };
 
     setIsLoading(true);
@@ -46,13 +51,22 @@ const Login = () => {
         required
       />
 
+      <label htmlFor="verifyPassword">Vérifier votre mot de passe</label>
+      <input
+        id="verifyPassword"
+        type="password"
+        value={verifyPassword}
+        onChange={({ target }) => setVerifyPassword(target.value)}
+        required
+      />
+
       {isLoading ? (
         <button disabled>Loading...</button>
       ) : (
-        <button>Se connecter</button>
+        <button>S'inscrire</button>
       )}
     </form>
   );
 };
 
-export default Login;
+export default SignIn;
