@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
@@ -8,6 +9,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Login />
+          </Route>
+          <Route exact path="/dashboard">
+            <Dashboard />
           </Route>
         </Switch>
       </div>

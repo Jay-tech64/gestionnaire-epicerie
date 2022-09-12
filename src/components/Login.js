@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "../index.css";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ const Login = () => {
       body: JSON.stringify(loginInfo), // Le id est ajouté automatiquement par JSON Server
     }).then(() => {
       setIsLoading(false);
+      history.push("/dashboard");
     });
   };
 
@@ -43,7 +46,11 @@ const Login = () => {
         required
       />
 
-      {isLoading ? <button>Loading...</button> : <button>Se connecter</button>}
+      {isLoading ? (
+        <button disabled>Loading...</button>
+      ) : (
+        <button>Se connecter</button>
+      )}
     </form>
   );
 };
