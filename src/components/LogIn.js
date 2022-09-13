@@ -11,18 +11,18 @@ const LogIn = (props) => {
 
   return (
     <div className="divStyles d-flex flex-column justify-content-evenly align-items-center">
-      <h1 className=" display-1 text-center text-white">{props.title}</h1>
+      <h1 className="display-1 text-center text-white">{props.title}</h1>
       <form
         className="d-flex w-50 h-50 flex-column justify-content-center p-5 bg-primary text-white rounded"
         onSubmit={handleSubmit}
       >
         <div className="mb-3">
           <label className="form-label" htmlFor="username">
-            Identifiant
+            Courriel
           </label>
           <input
             className="form-control"
-            type="text"
+            type="email"
             id="username"
             value={username}
             onChange={({ target }) => setUsername(target.value)}
@@ -44,15 +44,18 @@ const LogIn = (props) => {
           />
         </div>
 
-        {isLoading ? (
-          <button className="btn btn-info" disabled>
-            Loading...
-          </button>
-        ) : (
-          <button type="submit" className="btn btn-info">
-            Se connecter
-          </button>
-        )}
+        <div className="mb-3">
+          {isLoading ? (
+            <button className="btn btn-info" disabled>
+              Loading...
+            </button>
+          ) : (
+            <button type="submit" className="btn btn-info">
+              Se connecter
+            </button>
+          )}
+        </div>
+
         <div className="my-3">
           <p>Vous n'avez pas de compte?</p>
           <button className="btn btn-info" onClick={props.changeForm}>
