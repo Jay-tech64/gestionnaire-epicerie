@@ -10,34 +10,57 @@ const LogIn = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>{props.title}</h1>
+    <div className="divStyles d-flex flex-column justify-content-evenly align-items-center">
+      <h1 className=" display-1 text-center text-white">{props.title}</h1>
+      <form
+        className="d-flex w-50 h-50 flex-column justify-content-center p-5 bg-primary text-white rounded"
+        onSubmit={handleSubmit}
+      >
+        <div className="mb-3">
+          <label className="form-label" htmlFor="username">
+            Identifiant
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            id="username"
+            value={username}
+            onChange={({ target }) => setUsername(target.value)}
+            required
+          />
+        </div>
 
-      <label htmlFor="username">Identifiant</label>
-      <input
-        type="text"
-        id="username"
-        value={username}
-        onChange={({ target }) => setUsername(target.value)}
-        required
-      />
+        <div className="mb-3">
+          <label className="form-label" htmlFor="password">
+            Mot de passe
+          </label>
+          <input
+            className="form-control"
+            id="password"
+            type="password"
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
+            required
+          />
+        </div>
 
-      <label htmlFor="password">Mot de passe</label>
-      <input
-        id="password"
-        type="password"
-        value={password}
-        onChange={({ target }) => setPassword(target.value)}
-        required
-      />
-      {isLoading ? (
-        <button disabled>Loading...</button>
-      ) : (
-        <button>Se connecter</button>
-      )}
-      <p>Vous n'avez pas de compte?</p>
-      <button onClick={props.changeForm}>S'inscrire</button>
-    </form>
+        {isLoading ? (
+          <button className="btn btn-info" disabled>
+            Loading...
+          </button>
+        ) : (
+          <button type="submit" className="btn btn-info">
+            Se connecter
+          </button>
+        )}
+        <div className="my-3">
+          <p>Vous n'avez pas de compte?</p>
+          <button className="btn btn-info" onClick={props.changeForm}>
+            S'inscrire
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
