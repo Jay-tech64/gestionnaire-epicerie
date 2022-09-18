@@ -1,12 +1,26 @@
 import { useState } from "react";
+import axios from "axios";
 
 const LogIn = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = () => {
-    console.log("Login");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    axios
+      .get("http://localhost:4001/users/1")
+      .then((response) => {
+        console.log(response.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          console.log("Erreur:" + err);
+          setIsLoading(false);
+        }
+      });
   };
 
   return (
