@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const LogIn = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,8 +14,8 @@ const LogIn = (props) => {
     axios
       .get(`http://localhost:4001/users/${email}`)
       .then((response) => {
-        console.log(response.data);
         setIsLoading(false);
+        history.push("/dashboard", response.data);
       })
       .catch((err) => {
         if (err.name !== "AbortError") {
