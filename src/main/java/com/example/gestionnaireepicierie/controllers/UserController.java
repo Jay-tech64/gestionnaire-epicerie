@@ -2,9 +2,7 @@ package com.example.gestionnaireepicierie.controllers;
 
 import com.example.gestionnaireepicierie.entities.User;
 import com.example.gestionnaireepicierie.repositories.UserRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -20,5 +18,10 @@ public class UserController {
     @GetMapping("/users/{id}")
     public Optional<User> getUserById(@PathVariable("id") Integer id) {
         return this.userRepository.findById(id);
+    }
+
+    @PostMapping("/users")
+    public User createNewUser(@RequestBody User user) {
+        return this.userRepository.save(user);
     }
 }
