@@ -16,9 +16,9 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/users/{id}")
-    public Optional<User> getUserById(@PathVariable("id") Integer id) {
-        return this.userRepository.findById(id);
+    @GetMapping("/users/{email}")
+    public Optional<User> getUserByEmail(@PathVariable("email") String email) {
+        return this.userRepository.findUserByEmail(email);
     }
 
     @PostMapping("/users")

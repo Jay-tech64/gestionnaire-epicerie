@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const LogIn = (props) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -10,7 +10,7 @@ const LogIn = (props) => {
     e.preventDefault();
     setIsLoading(true);
     axios
-      .get("http://localhost:4001/users/1")
+      .get(`http://localhost:4001/users/${email}`)
       .then((response) => {
         console.log(response.data);
         setIsLoading(false);
@@ -38,8 +38,8 @@ const LogIn = (props) => {
             className="form-control"
             type="email"
             id="username"
-            value={username}
-            onChange={({ target }) => setUsername(target.value)}
+            value={email}
+            onChange={({ target }) => setEmail(target.value)}
             required
           />
         </div>
