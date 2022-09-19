@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const LogIn = (props) => {
@@ -15,12 +15,13 @@ const LogIn = (props) => {
       .get(`http://localhost:4001/users/${email}`)
       .then((response) => {
         setIsLoading(false);
-        if (response.data != null){
-           history.push("/dashboard", response.data);
-        } else {
+        if (response.data == null) {
           console.log("Utilisateur inexistant");
+        } else if (response.data.password != password) {
+          console.log("Courriel ou mot de passe incorrect");
+        } else {
+          history.push("/dashboard", response.data);
         }
-        
       })
       .catch((err) => {
         if (err.name !== "AbortError") {
