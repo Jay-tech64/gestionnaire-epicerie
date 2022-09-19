@@ -8,6 +8,7 @@ const SignIn = (props) => {
   const [password, setPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
 
   const handleSubmit = (e) => {
@@ -27,11 +28,15 @@ const SignIn = (props) => {
       })
       .then((response) => {
         setIsLoading(false);
-        history.push("/dashboard", response.data);
+        history.push("/dashboard", response.data);   
       })
       .catch((err) => {
         if (err.name !== "AbortError") {
-          console.log("Erreur:" + err);
+          if (err.response.status == 409) {
+            setErrorMessage("Cette utilisateur existe déjà.");
+          } else {
+            console.log("Erreur:" + err);
+          }
           setIsLoading(false);
         }
       });
@@ -86,7 +91,7 @@ const SignIn = (props) => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="d-flex mb-3">
           {isLoading ? (
             <button className="btn btn-info" disabled>
               Loading...
@@ -94,6 +99,7 @@ const SignIn = (props) => {
           ) : (
             <button className="btn btn-info">S'inscrire</button>
           )}
+          <p className="m-2 text-danger">{errorMessage}</p>
         </div>
 
         <div className="mb-3">
