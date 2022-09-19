@@ -1,6 +1,7 @@
 import { useState } from "react";
-import Login from "./LogIn";
-import SignIn from "./SignIn";
+import LoginContainer from "../containers/LoginContainer";
+import "../index.css";
+import SignInContainer from "../containers/SignInContainer";
 
 const Home = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -11,9 +12,9 @@ const Home = () => {
   };
 
   return isLogin ? (
-    <Login title={title} changeForm={handleChangeForm} />
+    <LoginContainer title={title} changeForm={handleChangeForm} />
   ) : (
-    <SignIn title={title} changeForm={handleChangeForm} />
+    <SignInContainer title={title} changeForm={handleChangeForm} />
   );
 };
 

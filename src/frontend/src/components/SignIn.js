@@ -1,50 +1,10 @@
-import { useState } from "react";
-import "../index.css";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
-
 const SignIn = (props) => {
-  const [email, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [verifyPassword, setVerifyPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const history = useHistory();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password !== verifyPassword) {
-      alert("Le mot de passe n'est pas le même");
-      return;
-    }
-    const loginInfo = {"email": email, "password": password };
-
-    setIsLoading(true);
-
-    axios
-      .post("http://localhost:4001/users", loginInfo)
-      .then((response) => {
-        setIsLoading(false);
-        history.push("/dashboard", response.data);   
-      })
-      .catch((err) => {
-        if (err.name !== "AbortError") {
-          if (err.response.status === 409) {
-            setErrorMessage("Cette utilisateur existe déjà.");
-          } else {
-            console.log("Erreur:" + err);
-          }
-          setIsLoading(false);
-        }
-      });
-  };
-
   return (
     <div className="divStyles d-flex flex-column justify-content-evenly align-items-center">
       <h1 className="display-1 text-center text-white">{props.title}</h1>
       <form
         className="d-flex w-50 h-50 flex-column justify-content-center p-5 bg-primary text-white rounded"
-        onSubmit={handleSubmit}
+        onSubmit={props.onSubmit}
       >
         <div className="mb-3">
           <label className="form-label" htmlFor="username">
@@ -54,8 +14,8 @@ const SignIn = (props) => {
             id="username"
             className="form-control"
             type="email"
-            value={email}
-            onChange={({ target }) => setUsername(target.value)}
+            value={props.email}
+            onChange={props.changeEmail}
             required
           />
         </div>
@@ -68,8 +28,8 @@ const SignIn = (props) => {
             id="password"
             className="form-control"
             type="password"
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
+            value={props.password}
+            onChange={props.changePassword}
             required
           />
         </div>
@@ -82,21 +42,21 @@ const SignIn = (props) => {
             id="verifyPassword"
             className="form-control"
             type="password"
-            value={verifyPassword}
-            onChange={({ target }) => setVerifyPassword(target.value)}
+            value={props.verifyPassword}
+            onChange={props.changeVerifyPassword}
             required
           />
         </div>
 
         <div className="d-flex mb-3">
-          {isLoading ? (
+          {props.isLoading ? (
             <button className="btn btn-info" disabled>
               Loading...
             </button>
           ) : (
             <button className="btn btn-info">S'inscrire</button>
           )}
-          <p className="m-2 text-danger fw-bold">{errorMessage}</p>
+          <p className="m-2 text-danger fw-bold">{props.errorMessage}</p>
         </div>
 
         <div className="mb-3">
