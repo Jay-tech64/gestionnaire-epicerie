@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const SignIn = (props) => {
-  const [username, setUsername] = useState("");
+  const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,22 +17,19 @@ const SignIn = (props) => {
       alert("Le mot de passe n'est pas le même");
       return;
     }
-    const loginInfo = { username, password };
+    const loginInfo = {"email": email, "password": password };
 
     setIsLoading(true);
 
     axios
-      .post("http://localhost:4001/users", {
-        email: username,
-        password: password,
-      })
+      .post("http://localhost:4001/users", loginInfo)
       .then((response) => {
         setIsLoading(false);
         history.push("/dashboard", response.data);   
       })
       .catch((err) => {
         if (err.name !== "AbortError") {
-          if (err.response.status == 409) {
+          if (err.response.status === 409) {
             setErrorMessage("Cette utilisateur existe déjà.");
           } else {
             console.log("Erreur:" + err);
@@ -57,7 +54,7 @@ const SignIn = (props) => {
             id="username"
             className="form-control"
             type="email"
-            value={username}
+            value={email}
             onChange={({ target }) => setUsername(target.value)}
             required
           />
@@ -99,7 +96,7 @@ const SignIn = (props) => {
           ) : (
             <button className="btn btn-info">S'inscrire</button>
           )}
-          <p className="m-2 text-danger">{errorMessage}</p>
+          <p className="m-2 text-danger fw-bold">{errorMessage}</p>
         </div>
 
         <div className="mb-3">

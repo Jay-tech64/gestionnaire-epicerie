@@ -18,15 +18,22 @@ const LogIn = (props) => {
         setIsLoading(false);
         if (response.data == null) {
           setErrorMessage("Utilisateur inexistant");
-        } else if (response.data.password != password) {
-          setErrorMessage("Courriel ou mot de passe incorrect")
+        } else if (response.data.password !== password) {
+          setErrorMessage("Courriel ou mot de passe incorrect");
         } else {
           history.push("/dashboard", response.data);
         }
       })
       .catch((err) => {
+        console.log(err.response);
         if (err.name !== "AbortError") {
-          console.log("Erreur:" + err);
+          if (err.response.status === 0) {
+            setErrorMessage(
+              "Erreur de connexion avec le serveur. Veuillez réessayer plus tard."
+            );
+          } else {
+            console.log("Erreur:" + err);
+          }
           setIsLoading(false);
         }
       });
@@ -77,7 +84,7 @@ const LogIn = (props) => {
               Se connecter
             </button>
           )}
-          <p className="m-2 text-danger">{errorMessage}</p>
+          <p className="m-2 text-danger fw-bold">{errorMessage}</p>
         </div>
 
         <div className="my-3">
