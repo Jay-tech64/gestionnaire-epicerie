@@ -15,7 +15,12 @@ const LogIn = (props) => {
       .get(`http://localhost:4001/users/${email}`)
       .then((response) => {
         setIsLoading(false);
-        history.push("/dashboard", response.data);
+        if (response.data != null){
+           history.push("/dashboard", response.data);
+        } else {
+          console.log("Utilisateur inexistant");
+        }
+        
       })
       .catch((err) => {
         if (err.name !== "AbortError") {

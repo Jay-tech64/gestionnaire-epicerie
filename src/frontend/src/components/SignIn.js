@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../index.css";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const SignIn = (props) => {
   const [username, setUsername] = useState("");
@@ -19,14 +20,21 @@ const SignIn = (props) => {
 
     setIsLoading(true);
 
-    fetch("http://localhost:8000/users/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(loginInfo), // Le id est ajouté automatiquement par JSON Server
-    }).then(() => {
-      setIsLoading(false);
-      history.push("/dashboard");
-    });
+    axios
+      .post("http://localhost:4001/users", {
+        email: username,
+        password: password,
+      })
+      .then((response) => {
+        setIsLoading(false);
+        history.push("/dashboard", response.data);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          console.log("Erreur:" + err);
+          setIsLoading(false);
+        }
+      });
   };
 
   return (
