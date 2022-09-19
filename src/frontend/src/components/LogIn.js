@@ -6,6 +6,7 @@ const LogIn = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
 
   const handleSubmit = (e) => {
@@ -16,9 +17,9 @@ const LogIn = (props) => {
       .then((response) => {
         setIsLoading(false);
         if (response.data == null) {
-          console.log("Utilisateur inexistant");
+          setErrorMessage("Utilisateur inexistant");
         } else if (response.data.password != password) {
-          console.log("Courriel ou mot de passe incorrect");
+          setErrorMessage("Courriel ou mot de passe incorrect")
         } else {
           history.push("/dashboard", response.data);
         }
@@ -66,7 +67,7 @@ const LogIn = (props) => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="d-flex mb-3">
           {isLoading ? (
             <button className="btn btn-info" disabled>
               Loading...
@@ -76,6 +77,7 @@ const LogIn = (props) => {
               Se connecter
             </button>
           )}
+          <p className="m-2 text-danger">{errorMessage}</p>
         </div>
 
         <div className="my-3">
