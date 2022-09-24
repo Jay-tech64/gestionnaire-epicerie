@@ -24,9 +24,9 @@ const SignUpContainer = (props) => {
 
         axios
             .post("/sign-up", signUpInfo)
-            .then((response) => {
+            .then(() => {
                 setIsLoading(false);
-                history.push("/dashboard", response.data);
+                history.push("/dashboard", { name: name, email: email });
             })
             .catch((err) => {
                 if (err.response.status === 409) {
