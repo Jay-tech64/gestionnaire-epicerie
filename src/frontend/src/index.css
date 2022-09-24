@@ -19,15 +19,17 @@ code {
 
 section[class="articleList"] ul{
   padding: 0px;
+  margin-top: 50px;
 }
 
-section[class="articleList"] li{
+section[class="articleList"] div{
   list-style-type: none;
   padding-left: 0px;
-  border: 1px solid black;
   margin: 10px 0px;
-  padding: 10px;
+  padding: 5px 0px;
 }
+
+
 
 
 

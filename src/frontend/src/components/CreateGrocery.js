@@ -1,9 +1,10 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import Article from "./Article";
 
 const CreateGrocery = () => {
-    const [item, setItem] = useState(null);
+    const [item, setItem] = useState("");
     const [articles, setArticles] = useState([
         "Article 1",
         "Article 2",
@@ -14,6 +15,10 @@ const CreateGrocery = () => {
         e.preventDefault();
         setArticles([...articles, item]);
         setItem("");
+    };
+
+    const handleDelete = (itemName) => {
+        setArticles(articles.filter((article) => article !== itemName));
     };
 
     return (
@@ -33,14 +38,19 @@ const CreateGrocery = () => {
                             <FontAwesomeIcon icon={faPlus} />
                         </button>
                     </div>
-                    <section className="articleList">
-                        <ul>
-                            {articles.map((article, i) => (
-                                <li key={i}>{article}</li>
-                            ))}
-                        </ul>
-                    </section>
                 </form>
+                <section className="articleList">
+                    <ul>
+                        {articles.map((article, i) => (
+                            <Article
+                                className="my-2"
+                                key={i}
+                                value={article}
+                                delete={handleDelete}
+                            />
+                        ))}
+                    </ul>
+                </section>
             </main>
         </div>
     );
