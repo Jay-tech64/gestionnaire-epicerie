@@ -17,4 +17,17 @@ code {
   min-height: 100vh;
 }
 
+section[class="articleList"] ul{
+  padding: 0px;
+}
+
+section[class="articleList"] li{
+  list-style-type: none;
+  padding-left: 0px;
+  border: 1px solid black;
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+
 
