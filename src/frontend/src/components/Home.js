@@ -1,21 +1,21 @@
 import { useState } from "react";
-import LoginContainer from "../containers/LoginContainer";
-import "../index.css";
 import SignInContainer from "../containers/SignInContainer";
+import "../index.css";
+import SignUpContainer from "../containers/SignUpContainer";
 
 const Home = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const title = "Gestionnaire d'épicerie";
+    const [isLogin, setIsLogin] = useState(true);
+    const title = "Gestionnaire d'épicerie";
 
-  const handleChangeForm = () => {
-    setIsLogin(!isLogin);
-  };
+    const handleChangeForm = () => {
+        setIsLogin(!isLogin);
+    };
 
-  return isLogin ? (
-    <LoginContainer title={title} changeForm={handleChangeForm} />
-  ) : (
-    <SignInContainer title={title} changeForm={handleChangeForm} />
-  );
+    return isLogin ? (
+        <SignInContainer title={title} changeForm={handleChangeForm} />
+    ) : (
+        <SignUpContainer title={title} changeForm={handleChangeForm} />
+    );
 };
 
 export default Home;

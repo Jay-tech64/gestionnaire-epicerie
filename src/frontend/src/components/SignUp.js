@@ -1,4 +1,4 @@
-const LogIn = (props) => {
+const SignUp = (props) => {
     return (
         <div className="divStyles d-flex flex-column justify-content-evenly align-items-center">
             <h1 className="display-1 text-center text-white">{props.title}</h1>
@@ -7,13 +7,27 @@ const LogIn = (props) => {
                 onSubmit={props.onSubmit}
             >
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="username">
+                    <label className="form-label" htmlFor="name">
+                        Nom
+                    </label>
+                    <input
+                        id="name"
+                        className="form-control"
+                        type="text"
+                        value={props.name}
+                        onChange={props.changeName}
+                        required
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="email">
                         Courriel
                     </label>
                     <input
+                        id="email"
                         className="form-control"
                         type="email"
-                        id="username"
                         value={props.email}
                         onChange={props.changeEmail}
                         required
@@ -25,8 +39,8 @@ const LogIn = (props) => {
                         Mot de passe
                     </label>
                     <input
-                        className="form-control"
                         id="password"
+                        className="form-control"
                         type="password"
                         value={props.password}
                         onChange={props.changePassword}
@@ -34,29 +48,37 @@ const LogIn = (props) => {
                     />
                 </div>
 
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="verifyPassword">
+                        Vérifier votre mot de passe
+                    </label>
+                    <input
+                        id="verifyPassword"
+                        className="form-control"
+                        type="password"
+                        value={props.verifyPassword}
+                        onChange={props.changeVerifyPassword}
+                        required
+                    />
+                </div>
+
                 <div className="d-flex mb-3">
                     {props.isLoading ? (
                         <button className="btn btn-info" disabled>
-                            <div className="spinner-border" role="status">
-                                <span className="visually-hidden">
-                                    Loading...
-                                </span>
-                            </div>
+                            Loading...
                         </button>
                     ) : (
-                        <button type="submit" className="btn btn-info">
-                            Se connecter
-                        </button>
+                        <button className="btn btn-info">S'inscrire</button>
                     )}
                     <p className="m-2 text-danger fw-bold">
                         {props.errorMessage}
                     </p>
                 </div>
 
-                <div className="my-3">
-                    <p>Vous n'avez pas de compte?</p>
+                <div className="mb-3">
+                    <p>Vous avez déjà un compte?</p>
                     <button className="btn btn-info" onClick={props.changeForm}>
-                        S'inscrire
+                        Se connecter
                     </button>
                 </div>
             </form>
@@ -64,4 +86,4 @@ const LogIn = (props) => {
     );
 };
 
-export default LogIn;
+export default SignUp;
