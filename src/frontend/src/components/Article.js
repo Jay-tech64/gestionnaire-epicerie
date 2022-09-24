@@ -1,15 +1,15 @@
-import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Article = (props) => {
     return (
-        <div className="d-flex">
-            <input
-                type="text"
-                className="form-control"
-                value={props.value}
-                readOnly
-            />
+        <div className="d-flex justify-content-between align-items-center form-control my-2">
+            <div className="ms-2 me-auto">
+                <div className="fw-bold">{props.value}</div>
+                <span className="badge bg-primary rounded-pill">
+                    {props.price}
+                </span>
+            </div>
             <button
                 className="btn btn-danger mx-2"
                 onClick={() => props.delete(props.value)}

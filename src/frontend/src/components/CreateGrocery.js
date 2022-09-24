@@ -1,24 +1,26 @@
-import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Article from "./Article";
 
 const CreateGrocery = () => {
     const [item, setItem] = useState("");
+    const [price, setPrice] = useState("");
     const [articles, setArticles] = useState([
-        "Article 1",
-        "Article 2",
-        "Article 3",
+        ["Article 1", 1.99],
+        ["Article 2", 2.99],
+        ["Article 3", 3.99],
     ]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setArticles([...articles, item]);
+        setArticles([...articles, [item, price]]);
         setItem("");
+        setPrice("");
     };
 
     const handleDelete = (itemName) => {
-        setArticles(articles.filter((article) => article !== itemName));
+        setArticles(articles.filter((article) => article[0] !== itemName));
     };
 
     return (
@@ -29,10 +31,20 @@ const CreateGrocery = () => {
                     <div className="d-flex my-4">
                         <input
                             type="text"
-                            className="form-control"
+                            className="flex-grow-1 rounded"
                             placeholder="Ajouter un élément à votre épicerie"
                             value={item}
                             onChange={({ target }) => setItem(target.value)}
+                            required
+                        />
+                        <input
+                            type="number"
+                            step="0.01"
+                            className="rounded mx-1"
+                            placeholder="Prix"
+                            value={price}
+                            onChange={({ target }) => setPrice(target.value)}
+                            required
                         />
                         <button className="btn btn-info mx-2">
                             <FontAwesomeIcon icon={faPlus} />
@@ -40,16 +52,15 @@ const CreateGrocery = () => {
                     </div>
                 </form>
                 <section className="articleList">
-                    <ul>
-                        {articles.map((article, i) => (
-                            <Article
-                                className="my-2"
-                                key={i}
-                                value={article}
-                                delete={handleDelete}
-                            />
-                        ))}
-                    </ul>
+                    {articles.map((article, i) => (
+                        <Article
+                            className="my-2"
+                            key={i}
+                            value={article[0]}
+                            price={article[1]}
+                            delete={handleDelete}
+                        />
+                    ))}
                 </section>
             </main>
         </div>

@@ -17,16 +17,10 @@ code {
   min-height: 100vh;
 }
 
-section[class="articleList"] ul{
-  padding: 0px;
-  margin-top: 50px;
-}
-
-section[class="articleList"] div{
-  list-style-type: none;
-  padding-left: 0px;
-  margin: 10px 0px;
-  padding: 5px 0px;
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 
