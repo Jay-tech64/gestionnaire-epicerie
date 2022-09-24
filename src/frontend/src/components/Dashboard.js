@@ -6,7 +6,7 @@ const Dashboard = (props) => {
     return (
         <div className="divStyles p-3">
             <nav
-                className="col-md-4 col-lg-3 h-100 p-2 bg-white text-center rounded"
+                className="col-md-4 col-lg-3 p-2 bg-white text-center rounded"
                 style={{ minHeight: "95vh" }}
             >
                 <div className="header">
