@@ -3,15 +3,14 @@ package com.example.gestionnaireepicierie.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "GROCERIES")
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
-public class User {
+public class Grocery {
 
     @Id
     @GeneratedValue
@@ -19,10 +18,11 @@ public class User {
 
     @NonNull private String name;
 
-    @NonNull private String email;
-
-    @NonNull private String password;
+    @ManyToOne
+    @NonNull private User owner;
 
     @OneToMany
-    private List<Grocery> groceries;
+    @NonNull private List<Article> articles;
+
+    @NonNull private float totalPrice;
 }
