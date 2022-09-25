@@ -1,6 +1,6 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import Article from "./Article";
 
@@ -9,12 +9,14 @@ const CreateGrocery = () => {
     const [price, setPrice] = useState("");
     const [totalPrice, setTotalPrice] = useState(0.0);
     const [articles, setArticles] = useState([]);
+    const inputFocus = useRef();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setArticles([...articles, [item, price]]);
         setItem("");
         setPrice("");
+        inputFocus.current.focus();
     };
 
     const handleDelete = (itemName) => {
@@ -41,6 +43,8 @@ const CreateGrocery = () => {
                             placeholder="Ajouter un élément à votre épicerie"
                             value={item}
                             onChange={({ target }) => setItem(target.value)}
+                            ref={inputFocus}
+                            autoFocus
                             required
                         />
                         <input
@@ -71,6 +75,9 @@ const CreateGrocery = () => {
                 <section className="d-flex align-items-bottom mt-auto">
                     <h1 className="m-0">Prix total :</h1>
                     <p className="fs-2 mx-2 my-0">{totalPrice} $</p>
+                    <button className="btn btn-success ms-auto">
+                        Terminer
+                    </button>
                 </section>
             </main>
         </div>
