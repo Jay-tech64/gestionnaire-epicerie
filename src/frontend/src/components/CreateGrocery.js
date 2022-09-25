@@ -1,16 +1,14 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect } from "react";
 import { useState } from "react";
 import Article from "./Article";
 
 const CreateGrocery = () => {
     const [item, setItem] = useState("");
     const [price, setPrice] = useState("");
-    const [articles, setArticles] = useState([
-        ["Article 1", 1.99],
-        ["Article 2", 2.99],
-        ["Article 3", 3.99],
-    ]);
+    const [totalPrice, setTotalPrice] = useState(0.0);
+    const [articles, setArticles] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,9 +21,17 @@ const CreateGrocery = () => {
         setArticles(articles.filter((article) => article[0] !== itemName));
     };
 
+    useEffect(() => {
+        var totalPrice = 0.0;
+        articles.forEach((article) => {
+            totalPrice += parseFloat(article[1]);
+        });
+        setTotalPrice(totalPrice.toFixed(2));
+    }, [articles]);
+
     return (
         <div className="divStyles d-flex justify-content-center p-3">
-            <main className="col-sm-10 p-4 bg-white rounded">
+            <main className="d-flex flex-column col-sm-10 p-4 bg-white rounded">
                 <h1 className="text-center">Nouvelle épicerie</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="d-flex my-4">
@@ -61,6 +67,10 @@ const CreateGrocery = () => {
                             delete={handleDelete}
                         />
                     ))}
+                </section>
+                <section className="d-flex align-items-bottom mt-auto">
+                    <h1 className="m-0">Prix total :</h1>
+                    <p className="fs-2 mx-2 my-0">{totalPrice} $</p>
                 </section>
             </main>
         </div>
