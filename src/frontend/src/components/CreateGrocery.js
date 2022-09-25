@@ -1,7 +1,5 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef } from "react";
-import { useState } from "react";
 import Article from "./Article";
 
 const CreateGrocery = (props) => {
