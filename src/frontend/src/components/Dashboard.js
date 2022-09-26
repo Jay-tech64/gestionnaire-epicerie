@@ -1,9 +1,19 @@
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from "../api/axios";
 
 const Dashboard = (props) => {
     const location = useLocation();
     const { name, email } = location.state;
+
+    useEffect(() => {
+        axios
+            .get("/groceries", { params: { email: email } })
+            .then((response) => console.log(response))
+            .catch((err) => console.log(err));
+    }, []);
+
     return (
         <div className="divStyles p-3">
             <nav

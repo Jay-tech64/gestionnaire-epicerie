@@ -2,6 +2,7 @@ package com.example.gestionnaireepicierie.services;
 
 import com.example.gestionnaireepicierie.controllers.payload.request.ArticleDto;
 import com.example.gestionnaireepicierie.controllers.payload.request.GroceryDto;
+import com.example.gestionnaireepicierie.controllers.payload.response.UserDto;
 import com.example.gestionnaireepicierie.entities.Article;
 import com.example.gestionnaireepicierie.entities.Grocery;
 import com.example.gestionnaireepicierie.entities.User;
@@ -21,7 +22,7 @@ public class GroceryService {
     private UserRepository userRepository;
     private ArticleRepository articleRepository;
 
-    public void addGrocery(GroceryDto dto){
+    public void addGrocery(GroceryDto dto) {
         Optional<User> owner = userRepository.findUserByEmail(dto.owner().email());
         List<Article> articleList = new ArrayList<>();
 
@@ -33,9 +34,32 @@ public class GroceryService {
             ));
         }
 
-        if (owner.isPresent()){
+        if (owner.isPresent()) {
             Grocery grocery = new Grocery(dto.name(), owner.get(), articleList, dto.totalPrice());
             groceryRepository.save(grocery);
+        }
+    }
+
+    public List<GroceryDto> getGroceriesByUser(String userEmail) {
+        Optional<User> userOptional = userRepository.findUserByEmail(userEmail);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            List<Grocery> groceries = groceryRepository.getGroceriesByOwner(user);
+            return groceries.stream().map(
+                    grocery -> new GroceryDto(
+                            grocery.getName(),
+                            new UserDto(
+                                    grocery.getOwner().getName(),
+                                    grocery.getOwner().getEmail()),
+                            grocery.getArticles().stream().map(article -> new ArticleDto(
+                                    article.getName(),
+                                    article.getPrice())).toList(),
+                            grocery.getTotalPrice()
+                    )
+            ).toList();
+
+        } else {
+            return null;
         }
     }
 }
