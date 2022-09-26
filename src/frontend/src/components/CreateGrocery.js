@@ -1,6 +1,9 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Article from "./Article";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 
 const CreateGrocery = (props) => {
     return (
@@ -38,8 +41,8 @@ const CreateGrocery = (props) => {
                         <Article
                             className="my-2"
                             key={i}
-                            value={article[0]}
-                            price={article[1]}
+                            value={article.name}
+                            price={article.price}
                             delete={props.onDelete}
                         />
                     ))}
@@ -47,10 +50,47 @@ const CreateGrocery = (props) => {
                 <section className="d-flex align-items-bottom mt-auto">
                     <h1 className="m-0">Prix total :</h1>
                     <p className="fs-2 mx-2 my-0">{props.totalPrice} $</p>
-                    <button className="btn btn-success ms-auto">
+                    <button
+                        className="btn btn-success ms-auto"
+                        onClick={props.showModal}
+                    >
                         Terminer
                     </button>
                 </section>
+                <Modal show={props.show} onHide={props.closeModal} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Titre de l'épicerie</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={props.onComplete}>
+                            <Form.Group
+                                className="mt-3 mb-5"
+                                controlId="exampleForm.ControlInput1"
+                            >
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Entrez le nom de l'épicerie"
+                                    value={props.groceryName}
+                                    onChange={props.setGroceryName}
+                                    autoFocus
+                                    required
+                                />
+                            </Form.Group>
+                            <div className="d-flex flex-row-reverse">
+                                <Button variant="primary" type="submit">
+                                    Sauvegarder
+                                </Button>
+                                <Button
+                                    variant="danger"
+                                    onClick={props.closeModal}
+                                    className="me-2"
+                                >
+                                    Annuler
+                                </Button>
+                            </div>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
             </main>
         </div>
     );
