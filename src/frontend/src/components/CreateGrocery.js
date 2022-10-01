@@ -36,7 +36,7 @@ const CreateGrocery = (props) => {
                         </button>
                     </div>
                 </form>
-                <section className="articleList">
+                <section>
                     {props.articles.map((article, i) => (
                         <Article
                             className="my-2"
