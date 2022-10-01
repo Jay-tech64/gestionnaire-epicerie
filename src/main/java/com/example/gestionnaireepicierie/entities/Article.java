@@ -3,6 +3,7 @@ package com.example.gestionnaireepicierie.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ARTICLE")
@@ -19,6 +20,6 @@ public class Article {
 
     @NonNull private float price;
 
-    @ManyToOne
-    private Grocery grocery;
+    @ManyToMany
+    private List<Grocery> grocery;
 }

@@ -21,7 +21,7 @@ public class Grocery {
     @ManyToOne
     @NonNull private User owner;
 
-    @OneToMany
+    @ManyToMany
     @NonNull private List<Article> articles;
 
     @NonNull private float totalPrice;
