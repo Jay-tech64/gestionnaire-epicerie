@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "../api/axios";
 import SignUp from "../components/SignUp";
+import { signUp } from "../services/AuthService";
 
 const SignUpContainer = (props) => {
     const [name, setName] = useState("");
@@ -19,11 +19,9 @@ const SignUpContainer = (props) => {
             return;
         }
         const signUpInfo = { name: name, email: email, password: password };
-
         setIsLoading(true);
 
-        axios
-            .post("/sign-up", signUpInfo)
+        signUp(signUpInfo)
             .then(() => {
                 setIsLoading(false);
                 history.push("/dashboard", { name: name, email: email });

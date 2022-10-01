@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from "../api/axios";
+import { getGroceriesByUser } from "../services/GroceryService";
 
 const Dashboard = (props) => {
     const location = useLocation();
@@ -10,8 +10,7 @@ const Dashboard = (props) => {
     const { name, email } = location.state;
 
     useEffect(() => {
-        axios
-            .get(`/groceries?email=${email}`)
+        getGroceriesByUser(email)
             .then((response) => {
                 setGroceries(response.data);
             })

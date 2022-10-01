@@ -1,24 +1,40 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Article from "./Article";
+import Article from "../components/Article";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
-const CreateGrocery = (props) => {
+const CreateGrocery = ({
+    onSubmit,
+    groceryName,
+    setGroceryName,
+    item,
+    setItem,
+    inputFocus,
+    price,
+    setPrice,
+    articles,
+    onDelete,
+    totalPrice,
+    onComplete,
+    show,
+    showModal,
+    closeModal,
+}) => {
     return (
         <div className="divStyles d-flex justify-content-center p-3">
             <main className="d-flex flex-column col-sm-10 p-4 bg-white rounded">
                 <h1 className="text-center">Nouvelle épicerie</h1>
-                <form onSubmit={props.onSubmit}>
+                <form onSubmit={onSubmit}>
                     <div className="d-flex my-4">
                         <input
                             type="text"
                             className="flex-grow-1 rounded"
                             placeholder="Ajouter un élément à votre épicerie"
-                            value={props.item}
-                            onChange={props.setItem}
-                            ref={props.inputFocus}
+                            value={item}
+                            onChange={setItem}
+                            ref={inputFocus}
                             autoFocus
                             required
                         />
@@ -27,8 +43,8 @@ const CreateGrocery = (props) => {
                             step="0.01"
                             className="rounded mx-1"
                             placeholder="Prix"
-                            value={props.price}
-                            onChange={props.setPrice}
+                            value={price}
+                            onChange={setPrice}
                             required
                         />
                         <button className="btn btn-info mx-2">
@@ -37,32 +53,32 @@ const CreateGrocery = (props) => {
                     </div>
                 </form>
                 <section>
-                    {props.articles.map((article, i) => (
+                    {articles.map((article, i) => (
                         <Article
                             className="my-2"
                             key={i}
                             value={article.name}
                             price={article.price}
-                            delete={props.onDelete}
+                            delete={onDelete}
                         />
                     ))}
                 </section>
                 <section className="d-flex align-items-bottom mt-auto">
                     <h1 className="m-0">Prix total :</h1>
-                    <p className="fs-2 mx-2 my-0">{props.totalPrice} $</p>
+                    <p className="fs-2 mx-2 my-0">{totalPrice} $</p>
                     <button
                         className="btn btn-success ms-auto"
-                        onClick={props.showModal}
+                        onClick={showModal}
                     >
                         Terminer
                     </button>
                 </section>
-                <Modal show={props.show} onHide={props.closeModal} centered>
+                <Modal show={show} onHide={closeModal} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Titre de l'épicerie</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={props.onComplete}>
+                        <Form onSubmit={onComplete}>
                             <Form.Group
                                 className="mt-3 mb-5"
                                 controlId="exampleForm.ControlInput1"
@@ -70,8 +86,8 @@ const CreateGrocery = (props) => {
                                 <Form.Control
                                     type="text"
                                     placeholder="Entrez le nom de l'épicerie"
-                                    value={props.groceryName}
-                                    onChange={props.setGroceryName}
+                                    value={groceryName}
+                                    onChange={setGroceryName}
                                     autoFocus
                                     required
                                 />
@@ -82,7 +98,7 @@ const CreateGrocery = (props) => {
                                 </Button>
                                 <Button
                                     variant="danger"
-                                    onClick={props.closeModal}
+                                    onClick={closeModal}
                                     className="me-2"
                                 >
                                     Annuler

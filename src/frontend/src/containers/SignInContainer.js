@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "../api/axios";
 import SignIn from "../components/SignIn";
+import { signIn } from "../services/AuthService";
 
 const SignInContainer = (props) => {
     const [email, setEmail] = useState("");
@@ -14,9 +14,7 @@ const SignInContainer = (props) => {
         e.preventDefault();
         const userInfo = { email: email, password: password };
         setIsLoading(true);
-
-        axios
-            .post("sign-in", userInfo)
+        signIn(userInfo)
             .then((response) => {
                 setIsLoading(false);
                 if (response.data == null) {

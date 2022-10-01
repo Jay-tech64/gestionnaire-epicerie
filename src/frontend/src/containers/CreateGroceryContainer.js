@@ -1,8 +1,8 @@
-import CreateGrocery from "../components/CreateGrocery";
+import CreateGrocery from "../views/CreateGrocery";
 import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import axios from "../api/axios";
+import { createGrocery } from "../services/GroceryService";
 
 const CreateGroceryContainer = () => {
     const [groceryName, setGroceryName] = useState("");
@@ -38,11 +38,8 @@ const CreateGroceryContainer = () => {
             articles: articles,
             totalPrice: totalPrice,
         };
-        console.log(JSON.stringify(dto));
-        axios
-            .post("/groceries", JSON.stringify(dto), {
-                headers: { "Content-Type": "application/json" },
-            })
+
+        createGrocery(dto)
             .then((response) => {
                 console.log(response);
                 history.push("/dashboard", response.data);
