@@ -24,7 +24,9 @@ const SignUpContainer = (props) => {
         signUp(signUpInfo)
             .then(() => {
                 setIsLoading(false);
-                history.push("/dashboard", { name: name, email: email });
+                localStorage.setItem("userName", name);
+                localStorage.setItem("userEmail", email);
+                history.push("/dashboard");
             })
             .catch((err) => {
                 if (err.response.status === 409) {

@@ -42,7 +42,7 @@ const CreateGroceryContainer = () => {
         createGrocery(dto)
             .then((response) => {
                 console.log(response);
-                history.push("/dashboard", response.data);
+                history.push("/dashboard");
             })
             .catch((err) => console.log(err));
     };

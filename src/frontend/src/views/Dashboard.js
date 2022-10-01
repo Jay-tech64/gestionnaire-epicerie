@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getGroceriesByUser } from "../services/GroceryService";
 
-const Dashboard = (props) => {
-    const location = useLocation();
+const Dashboard = () => {
     const [groceries, setGroceries] = useState([]);
-    const { name, email } = location.state;
+    const name = localStorage.getItem("userName");
+    const email = localStorage.getItem("userEmail");
 
     useEffect(() => {
         getGroceriesByUser(email)

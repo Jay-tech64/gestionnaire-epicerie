@@ -20,10 +20,13 @@ const SignInContainer = (props) => {
                 if (response.data == null) {
                     setErrorMessage("Utilisateur inexistant");
                 } else {
-                    history.push("/dashboard", response.data);
+                    localStorage.setItem("userName", response.data.name);
+                    localStorage.setItem("userEmail", response.data.email);
+                    history.push("/dashboard");
                 }
             })
             .catch((err) => {
+                console.log("allo", err);
                 if (err.response.status === 0) {
                     setErrorMessage(
                         "Erreur de connexion avec le serveur. Veuillez réessayer plus tard."
