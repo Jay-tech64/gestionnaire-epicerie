@@ -37,12 +37,19 @@ const Dashboard = () => {
                     </Link>
                 </div>
             </nav>
-            <section className="d-flex col-md-7 col-lg-8  bg-white rounded">
-                <article id="groceriesList" className="m-3 p-4 h-50">
-                    <h1 className="fs-3 text-center">Mes épiceries</h1>
-                    <ul>
+            <section className="d-flex col-md-7 col-lg-8  bg-white row rounded">
+                <article id="groceriesList" className="m-3 p-2 h-50 col-sm-5">
+                    <div className="header d-flex justify-content-center align-items-center">
+                        <h1 className="fs-3">Mes épiceries</h1>
+                    </div>
+                    <ul className="mx-3">
                         {groceries.map((grocery, i) => (
-                            <li key={i}>{grocery.name}</li>
+                            <li key={i} className="row">
+                                <p className="col-sm-9">{grocery.name}</p>
+                                <p className="col-sm-3">
+                                    {grocery.totalPrice.toFixed(2)} $
+                                </p>
+                            </li>
                         ))}
                     </ul>
                 </article>

@@ -31,17 +31,17 @@ article[id="groceriesList"] {
   box-shadow: 2px 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-article[id="groceriesList"] h1 {
+article[id="groceriesList"] .header {
   border: 2px solid black;
   padding: 0px 10px; 
-  height: 10%;
+  height: 20%;
 }
 
 article[id="groceriesList"] ul {
   list-style-type: none;
   padding: 0px;
   overflow: scroll;
-  height: 90%;
+  height: 80%;
 }
 
 article[id="groceriesList"] ul li {
