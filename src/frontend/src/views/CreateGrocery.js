@@ -89,6 +89,7 @@ const CreateGrocery = ({
                                     value={groceryName}
                                     onChange={setGroceryName}
                                     autoFocus
+                                    autoComplete="off"
                                     required
                                 />
                             </Form.Group>

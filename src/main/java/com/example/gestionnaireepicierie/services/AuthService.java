@@ -10,14 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 public class AuthService {
     private UserRepository userRepository;
 
-    public UserDto authenticate(SignInDto dto){
+    public UserDto signIn(SignInDto dto){
         User user = userRepository.findUserByEmail(dto.email())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
         return new UserDto(user.getName(), user.getEmail());

@@ -37,8 +37,11 @@ const Dashboard = () => {
                     </Link>
                 </div>
             </nav>
-            <section className="d-flex col-md-7 col-lg-8  bg-white row rounded">
-                <article id="groceriesList" className="m-3 p-2 h-50 col-sm-5">
+            <section className="d-flex col-md-7 col-lg-8  row rounded">
+                <article
+                    id="groceriesList"
+                    className="m-3 p-2 h-50 col-sm-5 bg-white"
+                >
                     <div className="header d-flex justify-content-center align-items-center">
                         <h1 className="fs-3">Mes épiceries</h1>
                     </div>

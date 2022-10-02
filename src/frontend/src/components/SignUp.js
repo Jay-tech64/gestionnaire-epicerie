@@ -30,6 +30,8 @@ const SignUp = ({
                         type="text"
                         value={name}
                         onChange={changeName}
+                        autoFocus
+                        autoComplete="off"
                         required
                     />
                 </div>

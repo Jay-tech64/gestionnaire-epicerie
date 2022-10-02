@@ -26,6 +26,7 @@ const SignIn = ({
                         id="username"
                         value={email}
                         onChange={changeEmail}
+                        autoFocus
                         required
                     />
                 </div>
