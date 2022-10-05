@@ -17,11 +17,11 @@ const Dashboard = () => {
             .catch((err) => console.log(err));
     }, [email]);
 
-    const handleGetGrocery = ({ articles }) => {
-        console.log(articles);
+    const handleGetGrocery = (grocery) => {
+        console.log(grocery);
         history.push({
             pathname: "/get-grocery",
-            state: { articles: articles },
+            state: { articles: grocery.articles },
         });
     };
 

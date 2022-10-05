@@ -47,6 +47,7 @@ public class GroceryService {
             List<Grocery> groceries = groceryRepository.getGroceriesByOwner(user);
             return groceries.stream().map(
                     grocery -> new GroceryDto(
+                            grocery.getId(),
                             grocery.getName(),
                             new UserDto(
                                     grocery.getOwner().getName(),
