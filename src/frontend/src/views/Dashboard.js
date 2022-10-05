@@ -19,6 +19,10 @@ const Dashboard = () => {
 
     const handleGetGrocery = ({ articles }) => {
         console.log(articles);
+        history.push({
+            pathname: "/get-grocery",
+            state: { articles: articles },
+        });
     };
 
     return (
