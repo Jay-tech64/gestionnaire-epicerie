@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getGroceriesByUser } from "../services/GroceryService";
 
 const Dashboard = () => {
     const [groceries, setGroceries] = useState([]);
     const name = localStorage.getItem("userName");
     const email = localStorage.getItem("userEmail");
+    const history = useHistory();
 
     useEffect(() => {
         getGroceriesByUser(email)
@@ -15,6 +16,10 @@ const Dashboard = () => {
             })
             .catch((err) => console.log(err));
     }, [email]);
+
+    const handleGetGrocery = ({ articles }) => {
+        console.log(articles);
+    };
 
     return (
         <div className="divStyles p-3 d-flex justify-content-around">
@@ -47,7 +52,11 @@ const Dashboard = () => {
                     </div>
                     <ul className="mx-3">
                         {groceries.map((grocery, i) => (
-                            <li key={i} className="row">
+                            <li
+                                key={i}
+                                className="row"
+                                onClick={() => handleGetGrocery(grocery)}
+                            >
                                 <p className="col-sm-9">{grocery.name}</p>
                                 <p className="col-sm-3">
                                     {grocery.totalPrice.toFixed(2)} $

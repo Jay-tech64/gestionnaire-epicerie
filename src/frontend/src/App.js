@@ -3,6 +3,7 @@ import Dashboard from "./views/Dashboard";
 import Home from "./views/Home";
 import NotFound from "./components/NotFound";
 import CreateGroceryContainer from "./containers/CreateGroceryContainer";
+import GetGrocery from "./components/GetGrocery";
 
 function App() {
     return (
@@ -17,6 +18,9 @@ function App() {
                     </Route>
                     <Route path="/create-grocery">
                         <CreateGroceryContainer />
+                    </Route>
+                    <Route path="/get-grocery">
+                        <GetGrocery />
                     </Route>
                     <Route path="*">
                         <NotFound />
