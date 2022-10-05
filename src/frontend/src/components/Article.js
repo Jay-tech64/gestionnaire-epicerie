@@ -2,7 +2,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Article = (props) => {
-    const capitalize = (string) => string[0].toUpperCase() + string.slice(1);
+    const capitalize = (string) =>
+        string[0].toUpperCase() + string.toLowerCase().slice(1);
 
     return (
         <div className="d-flex justify-content-between align-items-center form-control my-2">

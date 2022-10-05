@@ -21,6 +21,7 @@ const CreateGrocery = ({
     show,
     showModal,
     closeModal,
+    errorMessage,
 }) => {
     return (
         <div className="divStyles d-flex justify-content-center p-3">
@@ -63,9 +64,12 @@ const CreateGrocery = ({
                         />
                     ))}
                 </section>
-                <section className="d-flex align-items-bottom mt-auto">
+                <section className="d-flex align-items-center mt-auto">
                     <h1 className="m-0">Prix total :</h1>
                     <p className="fs-2 mx-2 my-0">{totalPrice} $</p>
+                    {errorMessage && (
+                        <p className="errorMessage">{errorMessage}</p>
+                    )}
                     <button
                         className="btn btn-success ms-auto"
                         onClick={showModal}

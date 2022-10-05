@@ -10,16 +10,24 @@ const CreateGroceryContainer = () => {
     const [price, setPrice] = useState("");
     const [totalPrice, setTotalPrice] = useState(0.0);
     const [articles, setArticles] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
     const inputFocus = useRef();
     const location = useLocation();
     const { owner, email } = location.state;
     const [show, setShow] = useState(false);
     const history = useHistory();
 
-    const handleClose = () => setShow(false);
+    const handleShowModal = () => {
+        if (articles.length === 0) {
+            setErrorMessage("L'épicerie doit contenir au moins un article.");
+            return;
+        }
+        setShow(true);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setErrorMessage("");
         setArticles([...articles, { name: item, price: price }]);
         setItem("");
         setPrice("");
@@ -70,10 +78,9 @@ const CreateGroceryContainer = () => {
             totalPrice={totalPrice}
             onComplete={handleComplete}
             show={show}
-            showModal={() => {
-                setShow(true);
-            }}
-            closeModal={handleClose}
+            showModal={handleShowModal}
+            closeModal={() => setShow(false)}
+            errorMessage={errorMessage}
         />
     );
 };
