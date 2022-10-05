@@ -14,7 +14,7 @@ public class Article {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
 
     @NonNull private String name;
 

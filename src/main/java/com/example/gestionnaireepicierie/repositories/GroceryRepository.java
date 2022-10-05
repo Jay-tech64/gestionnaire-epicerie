@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface GroceryRepository extends CrudRepository<Grocery, Integer> {
+public interface GroceryRepository extends CrudRepository<Grocery, Long> {
     List<Grocery> getGroceriesByOwner(User owner);
 }

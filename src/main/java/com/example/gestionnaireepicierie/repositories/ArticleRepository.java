@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface ArticleRepository extends CrudRepository<Article, Integer> {
+public interface ArticleRepository extends CrudRepository<Article, Long> {
     Article findArticleByNameAndPrice(String name, float price);
 }

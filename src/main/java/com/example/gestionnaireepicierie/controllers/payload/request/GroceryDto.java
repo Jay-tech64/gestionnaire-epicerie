@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 public record GroceryDto(
-        @NotBlank int id,
+        @NotBlank Long id,
         @NotBlank String name,
         @NotBlank UserDto owner,
         @NotBlank List<ArticleDto> articles,
