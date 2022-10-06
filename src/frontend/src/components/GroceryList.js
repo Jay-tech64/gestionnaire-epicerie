@@ -1,32 +1,36 @@
 import Article from "./Article";
-import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const GroceryList = ({
-                         onSubmit,
-                         groceryName,
-                         setGroceryName,
-                         item,
-                         setItem,
-                         inputFocus,
-                         price,
-                         setPrice,
-                         articles,
-                         onDelete,
-                         totalPrice,
-                         onComplete,
-                         show,
-                         showModal,
-                         closeModal,
-                         errorMessage,
-                     }) => {
+    onSubmit,
+    groceryName,
+    setGroceryName,
+    item,
+    setItem,
+    inputFocus,
+    price,
+    setPrice,
+    articles,
+    onDelete,
+    totalPrice,
+    onComplete,
+    show,
+    showModal,
+    closeModal,
+    errorMessage,
+}) => {
     return (
         <main className="divStyles d-flex justify-content-center p-3">
             <div className="d-flex flex-column col-sm-10 p-4 bg-white rounded">
-                <h1 className="text-center">{groceryName === "" ? "Nouvelle épicerie" : groceryName}</h1>
+                <h1 className="text-center">
+                    {typeof groceryName === "undefined"
+                        ? "Nouvelle épicerie"
+                        : groceryName}
+                </h1>
                 <form onSubmit={onSubmit}>
                     <div className="d-flex my-4">
                         <input
@@ -49,7 +53,7 @@ const GroceryList = ({
                             required
                         />
                         <button className="btn btn-info mx-2">
-                            <FontAwesomeIcon icon={faPlus}/>
+                            <FontAwesomeIcon icon={faPlus} />
                         </button>
                     </div>
                 </form>
@@ -83,7 +87,11 @@ const GroceryList = ({
                     <Modal.Title>Titre de l'épicerie</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={onComplete}>
+                    <Form
+                        onSubmit={(e) =>
+                            onComplete(e, groceryName, articles, totalPrice)
+                        }
+                    >
                         <Form.Group
                             className="mt-3 mb-5"
                             controlId="exampleForm.ControlInput1"

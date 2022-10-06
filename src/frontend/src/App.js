@@ -1,8 +1,9 @@
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./views/Dashboard";
 import Home from "./views/Home";
 import NotFound from "./components/NotFound";
 import CreateGrocery from "./views/CreateGrocery";
+import GetGrocery from "./views/GetGrocery";
 
 function App() {
     return (
@@ -10,19 +11,19 @@ function App() {
             <div className="App">
                 <Switch>
                     <Route exact path="/">
-                        <Home/>
+                        <Home />
                     </Route>
                     <Route path="/dashboard">
-                        <Dashboard/>
+                        <Dashboard />
                     </Route>
                     <Route path="/create-grocery">
-                        <CreateGrocery/>
+                        <CreateGrocery />
                     </Route>
-                    {/*<Route path="/get-grocery">*/}
-                    {/*    <GroceryList/>*/}
-                    {/*</Route>*/}
+                    <Route path="/get-grocery">
+                        <GetGrocery />
+                    </Route>
                     <Route path="*">
-                        <NotFound/>
+                        <NotFound />
                     </Route>
                 </Switch>
             </div>

@@ -28,6 +28,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Prettier IntelliJ
+node_modules
+package.json
+package-lock.json
+
 ### STS ###
 .apt_generated
 .classpath
