@@ -1,5 +1,5 @@
 import Article from "./Article";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -22,15 +22,26 @@ const GroceryList = ({
     showModal,
     closeModal,
     errorMessage,
+    navigateDashboard,
 }) => {
     return (
         <main className="divStyles d-flex justify-content-center p-3">
             <div className="d-flex flex-column col-sm-10 p-4 bg-white rounded">
-                <h1 className="text-center">
-                    {typeof groceryName === "undefined"
-                        ? "Nouvelle épicerie"
-                        : groceryName}
-                </h1>
+                <div>
+                    <button
+                        className="btn btn-primary"
+                        style={{ position: "absolute" }}
+                        onClick={navigateDashboard}
+                    >
+                        <FontAwesomeIcon icon={faArrowLeft} className="me-1" />{" "}
+                        Dashboard
+                    </button>
+                    <h1 className="text-center">
+                        {typeof groceryName === "undefined"
+                            ? "Nouvelle épicerie"
+                            : groceryName}
+                    </h1>
+                </div>
                 <form onSubmit={onSubmit}>
                     <div className="d-flex my-4">
                         <input

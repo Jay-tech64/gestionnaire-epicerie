@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import GroceryList from "../components/GroceryList";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 
 const GroceryListComponent = ({
     onComplete,
@@ -18,6 +19,7 @@ const GroceryListComponent = ({
     const [errorMessage, setErrorMessage] = useState("");
     const inputFocus = useRef();
     const [show, setShow] = useState(false);
+    const history = useHistory();
 
     useEffect(() => {
         let totalPrice = 0.0;
@@ -66,6 +68,7 @@ const GroceryListComponent = ({
             showModal={handleShowModal}
             closeModal={() => setShow(false)}
             errorMessage={errorMessage}
+            navigateDashboard={() => history.goBack()}
         />
     );
 };
