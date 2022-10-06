@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { getGroceriesByUser } from "../services/GroceryService";
+import {useState} from "react";
+import {useEffect} from "react";
+import {Link, useHistory} from "react-router-dom";
+import {getGroceriesByUser} from "../services/GroceryService";
 
 const Dashboard = () => {
     const [groceries, setGroceries] = useState([]);
@@ -21,7 +21,11 @@ const Dashboard = () => {
         console.log(grocery);
         history.push({
             pathname: "/get-grocery",
-            state: { articles: grocery.articles },
+            state: {
+                articles: grocery.articles,
+                id: grocery.id,
+                name: grocery.name,
+            },
         });
     };
 
@@ -29,7 +33,7 @@ const Dashboard = () => {
         <div className="divStyles p-3 d-flex justify-content-around">
             <nav
                 className="col-md-4 col-lg-3 p-2 bg-white text-center rounded"
-                style={{ minHeight: "95vh" }}
+                style={{minHeight: "95vh"}}
             >
                 <div className="header">
                     <h1>Gestionnaire d'épicerie</h1>
@@ -39,7 +43,7 @@ const Dashboard = () => {
                     <Link
                         to={{
                             pathname: "/create-grocery",
-                            state: { owner: name, email: email },
+                            state: {owner: name, email: email},
                         }}
                     >
                         Nouvelle épicerie
