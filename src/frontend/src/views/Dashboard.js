@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { getGroceriesByUser } from "../services/GroceryService";
+import { createBrowserHistory } from "history";
 
 const Dashboard = () => {
     const [groceries, setGroceries] = useState([]);
@@ -10,15 +11,18 @@ const Dashboard = () => {
     const history = useHistory();
 
     useEffect(() => {
+        if (!email) {
+            history.replace("/");
+            return;
+        }
         getGroceriesByUser(email)
             .then((response) => {
                 setGroceries(response.data);
             })
             .catch((err) => console.log(err));
-    }, [email]);
+    }, [email, history]);
 
     const handleGetGrocery = (grocery) => {
-        console.log(grocery);
         history.push({
             pathname: "/get-grocery",
             state: {
@@ -29,10 +33,17 @@ const Dashboard = () => {
         });
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userEmail");
+        history.replace("/");
+        createBrowserHistory.replace("/");
+    };
+
     return (
         <div className="divStyles p-3 d-flex justify-content-around">
             <nav
-                className="col-md-4 col-lg-3 p-2 bg-white text-center rounded"
+                className="d-flex flex-column col-md-4 col-lg-3 p-2 bg-white text-center rounded"
                 style={{ minHeight: "95vh" }}
             >
                 <div className="header">
@@ -49,6 +60,12 @@ const Dashboard = () => {
                         Nouvelle épicerie
                     </Link>
                 </div>
+                <button
+                    className="btn btn-danger mt-auto"
+                    onClick={handleLogout}
+                >
+                    Déconnexion
+                </button>
             </nav>
             <section className="d-flex col-md-7 col-lg-8  row rounded">
                 <article
