@@ -16,9 +16,11 @@ public class Article {
     @GeneratedValue
     private Long id;
 
-    @NonNull private String name;
+    @NonNull
+    private String name;
 
-    @NonNull private float price;
+    @NonNull
+    private float price;
 
     @ManyToMany
     private List<Grocery> grocery;

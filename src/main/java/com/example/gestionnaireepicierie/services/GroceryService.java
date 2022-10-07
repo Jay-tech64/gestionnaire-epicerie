@@ -10,7 +10,9 @@ import com.example.gestionnaireepicierie.repositories.ArticleRepository;
 import com.example.gestionnaireepicierie.repositories.GroceryRepository;
 import com.example.gestionnaireepicierie.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -28,6 +30,12 @@ public class GroceryService {
 
         for (ArticleDto article : dto.articles()) {
             Article articleInDb = articleRepository.findArticleByNameAndPrice(article.name(), article.price());
+            List<String> articlesName = articleList.stream().map(Article::getName).toList();
+
+            if (articleInDb != null && articlesName.contains(articleInDb.getName())) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT);
+            }
+
             articleList.add(Objects.requireNonNullElseGet(
                     articleInDb,
                     () -> articleRepository.save(new Article(article.name(), article.price()))
@@ -62,5 +70,19 @@ public class GroceryService {
         } else {
             return null;
         }
+    }
+
+    public void updateGrocery(GroceryDto dto, Long id) {
+        Grocery grocery = groceryRepository.getGroceryById(id);
+
+        grocery.setName(dto.name());
+        grocery.setArticles(dto.articles().stream().map(
+                articleDto -> new Article(
+                        articleDto.name(),
+                        articleDto.price()
+                )).toList());
+        grocery.setTotalPrice(dto.totalPrice());
+
+        groceryRepository.save(grocery);
     }
 }
