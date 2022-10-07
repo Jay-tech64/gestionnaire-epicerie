@@ -1,63 +1,65 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .divStyles {
-  background-color: cornflowerblue;
-  min-height: 100vh;
+    background-color: cornflowerblue;
+    min-height: 100vh;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .errorMessage {
-  color: red;
-  background-color: rgb(256, 0, 0, 0.2);
-  padding: 5px;
-  margin: 0px;
+    color: red;
+    background-color: rgb(256, 0, 0, 0.2);
+    padding: 5px;
+    margin: 0;
 }
 
 article[id="groceriesList"] ul::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 article[id="groceriesList"] {
-  box-shadow: 2px 2px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 article[id="groceriesList"] .header {
-  border: 2px solid black;
-  padding: 0px 10px; 
-  height: 20%;
+    border: 2px solid black;
+    padding: 0 10px;
+    height: 20%;
 }
 
 article[id="groceriesList"] ul {
-  list-style-type: none;
-  padding: 0px;
-  overflow: scroll;
-  height: 80%;
+    list-style-type: none;
+    padding: 0;
+    overflow: scroll;
+    height: 80%;
 }
 
 article[id="groceriesList"] ul li {
-  border: 1px solid black;
-  margin: 10px 0px;
-  padding: 10px;
-  border-radius: 10px;
+    border: 1px solid black;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
 }
 
+article[id="groceriesList"] ul li:hover {
+    background-color: rgba(125, 119, 119, 0.2);
+}
 
 
 

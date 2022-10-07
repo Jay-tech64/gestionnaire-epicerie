@@ -15,14 +15,21 @@ public class GroceryController {
 
     GroceryService groceryService;
 
+    @GetMapping("/groceries")
+    public ResponseEntity<List<GroceryDto>> getGroceries(@RequestParam String email) {
+        return ResponseEntity.ok(groceryService.getGroceriesByUser(email));
+    }
+
     @PostMapping("/groceries")
-    public ResponseEntity<Void> addGrocery(@RequestBody GroceryDto dto){
+    public ResponseEntity<Void> addGrocery(@RequestBody GroceryDto dto) {
         groceryService.addGrocery(dto);
         return ResponseEntity.accepted().build();
     }
 
-    @GetMapping("/groceries")
-    public ResponseEntity<List<GroceryDto>> getGroceries(@RequestParam String email){
-        return ResponseEntity.ok(groceryService.getGroceriesByUser(email));
+    @PostMapping("/groceries/{id}")
+    public ResponseEntity<Void> updateGrocery(@RequestBody GroceryDto dto, @RequestParam Long id) {
+        groceryService.updateGrocery(dto, id);
+        return ResponseEntity.accepted().build();
     }
+
 }
