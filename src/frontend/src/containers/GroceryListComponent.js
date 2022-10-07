@@ -38,7 +38,18 @@ const GroceryListComponent = ({
     };
 
     const handleSubmit = (e) => {
+        let hasDuplicate = false;
         e.preventDefault();
+        articles.forEach((article) => {
+            console.log(article.name === item);
+            if (article.name === item) {
+                setErrorMessage(
+                    `L'article ${item} existe déjà dans la liste d'épicerie`
+                );
+                hasDuplicate = true;
+            }
+        });
+        if (hasDuplicate) return;
         setErrorMessage("");
         setArticles([...articles, { name: item, price: price }]);
         setItem("");
