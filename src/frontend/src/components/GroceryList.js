@@ -37,9 +37,7 @@ const GroceryList = ({
                         Dashboard
                     </button>
                     <h1 className="text-center">
-                        {typeof groceryName === "undefined"
-                            ? "Nouvelle épicerie"
-                            : groceryName}
+                        {groceryName === "" ? "Nouvelle épicerie" : groceryName}
                     </h1>
                 </div>
                 <form onSubmit={onSubmit}>

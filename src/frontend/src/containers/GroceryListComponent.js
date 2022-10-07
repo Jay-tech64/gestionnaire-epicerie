@@ -9,7 +9,9 @@ const GroceryListComponent = ({
     groceryName,
     groceryArticles,
 }) => {
-    const [name, setName] = useState(groceryName);
+    const [name, setName] = useState(
+        typeof groceryName === "undefined" ? "" : groceryName
+    );
     const [item, setItem] = useState("");
     const [price, setPrice] = useState("");
     const [totalPrice, setTotalPrice] = useState(0.0);
