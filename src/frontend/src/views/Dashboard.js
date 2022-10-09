@@ -28,6 +28,7 @@ const Dashboard = () => {
             state: {
                 id: grocery.id,
                 name: grocery.name,
+                owner: { name: name, email: email },
                 articles: grocery.articles,
             },
         });

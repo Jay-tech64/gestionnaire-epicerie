@@ -26,9 +26,9 @@ public class GroceryController {
         return ResponseEntity.accepted().build();
     }
 
-    @PostMapping("/groceries/{id}")
-    public ResponseEntity<Void> updateGrocery(@RequestBody GroceryDto dto, @RequestParam Long id) {
-        groceryService.updateGrocery(dto, id);
+    @PutMapping("/groceries")
+    public ResponseEntity<Void> updateGrocery(@RequestBody GroceryDto dto) {
+        groceryService.updateGrocery(dto);
         return ResponseEntity.accepted().build();
     }
 

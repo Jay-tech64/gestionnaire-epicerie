@@ -12,6 +12,7 @@ import com.example.gestionnaireepicierie.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
@@ -72,17 +73,15 @@ public class GroceryService {
         }
     }
 
-    public void updateGrocery(GroceryDto dto, Long id) {
-        Grocery grocery = groceryRepository.getGroceryById(id);
+    @Transactional
+    public void updateGrocery(GroceryDto dto) {
+        Optional<Grocery> optionalGrocery = groceryRepository.getGroceryById(dto.id());
 
-        grocery.setName(dto.name());
-        grocery.setArticles(dto.articles().stream().map(
-                articleDto -> new Article(
-                        articleDto.name(),
-                        articleDto.price()
-                )).toList());
-        grocery.setTotalPrice(dto.totalPrice());
+        if (optionalGrocery.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        Grocery grocery = optionalGrocery.get();
 
-        groceryRepository.save(grocery);
+        groceryRepository.deleteGroceryById(grocery.getId());
+        addGrocery(dto);
     }
 }
