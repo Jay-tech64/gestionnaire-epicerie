@@ -18,9 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -69,17 +67,19 @@ public class AuthServiceTest {
                 .extracting("status").isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
-//    @Test
-//    void signUpHappyDay() {
-//        // Arrange
-//        SignUpDto mockSignUp = new SignUpDto("Arya", "arya@test.com", "It's a secret");
-//        User expectedUser = new User("Arya", "arya@test.com", "It's a secret");
-//        when(userRepository.save(any(User.class))).thenReturn(expectedUser);
-//
-//        // Act
-//        authService.signUp(mockSignUp);
-//
-//        // Assert
-//        assertThat(userRepository.findUserByEmail("arya@test.com").isPresent()).isTrue();
-//    }
+    @Test
+    void signUpHappyDay() {
+        // Arrange
+        SignUpDto mockSignUp = new SignUpDto("Arya", "arya@test.com", "It's a secret");
+        User mockUser = new User("Arya", "arya@test.com", "It's a secret");
+        when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(mockUser));
+
+        // Act
+        assertThatThrownBy(() -> authService.signUp(mockSignUp))
+                .isInstanceOf(ResponseStatusException.class)
+                .extracting("status").isEqualTo(HttpStatus.CONFLICT);
+
+        // Assert
+        assertThat(userRepository.findUserByEmail("arya@test.com").isPresent()).isTrue();
+    }
 }
