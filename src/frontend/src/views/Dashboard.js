@@ -3,6 +3,11 @@ import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { getGroceriesByUser } from "../services/GroceryService";
 import { createBrowserHistory } from "history";
+import {
+    faShoppingBasket,
+    faArrowRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Dashboard = () => {
     const [groceries, setGroceries] = useState([]);
@@ -57,7 +62,12 @@ const Dashboard = () => {
                             pathname: "/create-grocery",
                             state: { owner: name, email: email },
                         }}
+                        className="btn btn-primary"
                     >
+                        <FontAwesomeIcon
+                            icon={faShoppingBasket}
+                            className={"me-2"}
+                        />
                         Nouvelle épicerie
                     </Link>
                 </div>
@@ -65,13 +75,17 @@ const Dashboard = () => {
                     className="btn btn-danger mt-auto"
                     onClick={handleLogout}
                 >
+                    <FontAwesomeIcon
+                        icon={faArrowRightFromBracket}
+                        className={"me-2"}
+                    />
                     Déconnexion
                 </button>
             </nav>
             <section className="d-flex col-md-7 col-lg-8  row rounded">
                 <article
                     id="groceriesList"
-                    className="m-3 p-2 h-50 col-sm-5 bg-white"
+                    className="m-3 p-2 h-90 col-sm-5 bg-white"
                 >
                     <div className="header d-flex justify-content-center align-items-center">
                         <h1 className="fs-3">Mes épiceries</h1>
@@ -83,8 +97,8 @@ const Dashboard = () => {
                                 className="row"
                                 onClick={() => handleGetGrocery(grocery)}
                             >
-                                <p className="col-sm-9">{grocery.name}</p>
-                                <p className="col-sm-3">
+                                <p className="col-sm-8">{grocery.name}</p>
+                                <p className="col-sm-4 text-end">
                                     {grocery.totalPrice.toFixed(2)} $
                                 </p>
                             </li>
