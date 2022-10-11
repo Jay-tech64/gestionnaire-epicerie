@@ -8,6 +8,7 @@ import {
     faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Article from "../components/Article";
 
 const Dashboard = () => {
     const [groceries, setGroceries] = useState([]);
@@ -44,6 +45,10 @@ const Dashboard = () => {
         localStorage.removeItem("userEmail");
         history.replace("/");
         createBrowserHistory.replace("/");
+    };
+
+    const handleDelete = () => {
+        console.log("Delete grocery");
     };
 
     return (
@@ -90,20 +95,16 @@ const Dashboard = () => {
                     <div className="header d-flex justify-content-center align-items-center">
                         <h1 className="fs-3">Mes épiceries</h1>
                     </div>
-                    <ul className="mx-3">
-                        {groceries.map((grocery, i) => (
-                            <li
-                                key={i}
-                                className="row"
-                                onClick={() => handleGetGrocery(grocery)}
-                            >
-                                <p className="col-sm-8">{grocery.name}</p>
-                                <p className="col-sm-4 text-end">
-                                    {grocery.totalPrice.toFixed(2)} $
-                                </p>
-                            </li>
-                        ))}
-                    </ul>
+                    {groceries.map((grocery, index) => (
+                        <Article
+                            key={index}
+                            value={grocery.name}
+                            price={grocery.totalPrice}
+                            deleteArticle={handleDelete}
+                            doCapitalize={false}
+                            onClick={() => handleGetGrocery(grocery)}
+                        />
+                    ))}
                 </article>
             </section>
         </div>

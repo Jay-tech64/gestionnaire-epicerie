@@ -74,6 +74,7 @@ const GroceryList = ({
                             value={article.name}
                             price={article.price}
                             deleteArticle={onDelete}
+                            doCapitalize={true}
                         />
                     ))}
                 </section>
