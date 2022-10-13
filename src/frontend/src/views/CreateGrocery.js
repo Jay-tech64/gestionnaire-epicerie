@@ -21,7 +21,9 @@ const CreateGrocery = () => {
             .catch((err) => console.log(err));
     };
 
-    return <GroceryListComponent onComplete={handleComplete} />;
+    return (
+        <GroceryListComponent onComplete={handleComplete} isDeletable={false} />
+    );
 };
 
 export default CreateGrocery;

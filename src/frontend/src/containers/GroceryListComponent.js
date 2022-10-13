@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import GroceryList from "../components/GroceryList";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
+import { deleteGrocery } from "../services/GroceryService";
 
 const GroceryListComponent = ({
     onComplete,
     groceryId,
     groceryName,
     groceryArticles,
+    isDeletable,
 }) => {
     const [name, setName] = useState(
         typeof groceryName === "undefined" ? "" : groceryName
@@ -63,6 +65,16 @@ const GroceryListComponent = ({
         setArticles(articles.filter((article) => article.name !== itemName));
     };
 
+    const handleDeleteGrocery = () => {
+        deleteGrocery(groceryId)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     return (
         <GroceryList
             onSubmit={handleSubmit}
@@ -82,6 +94,8 @@ const GroceryListComponent = ({
             closeModal={() => setShow(false)}
             errorMessage={errorMessage}
             navigateDashboard={() => history.goBack()}
+            isDeletable={isDeletable}
+            deleteGrocery={handleDeleteGrocery}
         />
     );
 };

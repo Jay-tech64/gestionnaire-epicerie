@@ -34,6 +34,7 @@ const GetGrocery = () => {
                 groceryId={id}
                 groceryName={name}
                 groceryArticles={articles}
+                isDeletable={true}
             />
         </div>
     );

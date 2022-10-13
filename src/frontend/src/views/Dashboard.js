@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { deleteGrocery, getGroceriesByUser } from "../services/GroceryService";
+import { getGroceriesByUser } from "../services/GroceryService";
 import { createBrowserHistory } from "history";
 import {
     faShoppingBasket,
     faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Article from "../components/Article";
 
 const Dashboard = () => {
     const [groceries, setGroceries] = useState([]);
@@ -45,17 +44,6 @@ const Dashboard = () => {
         localStorage.removeItem("userEmail");
         history.replace("/");
         createBrowserHistory.replace("/");
-    };
-
-    const handleDelete = (groceryId) => {
-        console.log(groceryId);
-        // deleteGrocery(groceryId)
-        //     .then((response) => {
-        //         console.log(response);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
     };
 
     return (
@@ -102,16 +90,20 @@ const Dashboard = () => {
                     <div className="header d-flex justify-content-center align-items-center">
                         <h1 className="fs-3">Mes épiceries</h1>
                     </div>
-                    {groceries.map((grocery, index) => (
-                        <Article
-                            key={index}
-                            value={grocery.name}
-                            price={grocery.totalPrice}
-                            deleteArticle={handleDelete}
-                            doCapitalize={false}
-                            onClick={() => handleGetGrocery(grocery)}
-                        />
-                    ))}
+                    <ul className="mx-3">
+                        {groceries.map((grocery, i) => (
+                            <li
+                                key={i}
+                                className="row"
+                                onClick={() => handleGetGrocery(grocery)}
+                            >
+                                <p className="col-sm-8">{grocery.name}</p>
+                                <p className="col-sm-4 text-end">
+                                    {grocery.totalPrice.toFixed(2)} $
+                                </p>
+                            </li>
+                        ))}
+                    </ul>
                 </article>
             </section>
         </div>

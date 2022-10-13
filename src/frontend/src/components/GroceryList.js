@@ -23,22 +23,39 @@ const GroceryList = ({
     closeModal,
     errorMessage,
     navigateDashboard,
+    isDeletable,
+    deleteGrocery,
 }) => {
     return (
         <main className="divStyles d-flex justify-content-center p-3">
             <div className="d-flex flex-column col-sm-10 p-4 bg-white rounded">
-                <div>
+                <div
+                    className={
+                        "d-flex justify-content-between align-items-center"
+                    }
+                >
                     <button
                         className="btn btn-primary"
-                        style={{ position: "absolute" }}
                         onClick={navigateDashboard}
                     >
                         <FontAwesomeIcon icon={faArrowLeft} className="me-1" />{" "}
                         Dashboard
                     </button>
-                    <h1 className="text-center">
+                    <h1 className="text-center d-inline">
                         {groceryName === "" ? "Nouvelle épicerie" : groceryName}
                     </h1>
+
+                    <button
+                        className={"btn btn-danger"}
+                        onClick={deleteGrocery}
+                        style={
+                            isDeletable
+                                ? { visibility: "visible" }
+                                : { visibility: "hidden" }
+                        }
+                    >
+                        Supprimer
+                    </button>
                 </div>
                 <form onSubmit={onSubmit}>
                     <div className="d-flex my-4">
