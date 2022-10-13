@@ -84,4 +84,8 @@ public class GroceryService {
         groceryRepository.deleteGroceryById(grocery.getId());
         addGrocery(dto);
     }
+
+    public void deleteGrocery(Long id) {
+        groceryRepository.deleteGroceryById(id);
+    }
 }

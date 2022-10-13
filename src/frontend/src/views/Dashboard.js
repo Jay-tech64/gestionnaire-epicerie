@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { getGroceriesByUser } from "../services/GroceryService";
+import { deleteGrocery, getGroceriesByUser } from "../services/GroceryService";
 import { createBrowserHistory } from "history";
 import {
     faShoppingBasket,
@@ -47,8 +47,15 @@ const Dashboard = () => {
         createBrowserHistory.replace("/");
     };
 
-    const handleDelete = () => {
-        console.log("Delete grocery");
+    const handleDelete = (groceryId) => {
+        console.log(groceryId);
+        // deleteGrocery(groceryId)
+        //     .then((response) => {
+        //         console.log(response);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     });
     };
 
     return (

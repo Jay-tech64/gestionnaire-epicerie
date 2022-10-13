@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GroceryRepository extends CrudRepository<Grocery, Long> {
+
+    List<Grocery> findAll();
     List<Grocery> getGroceriesByOwner(User owner);
 
     Optional<Grocery> getGroceryById(Long id);

@@ -15,3 +15,7 @@ export const updateGrocery = async (dto) => {
         headers: { "Content-Type": "application/json" },
     });
 };
+
+export const deleteGrocery = async (groceryId) => {
+    return axios.delete(`/groceries/${groceryId}`);
+};
