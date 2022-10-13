@@ -85,6 +85,7 @@ public class GroceryService {
         addGrocery(dto);
     }
 
+    @Transactional
     public void deleteGrocery(Long id) {
         groceryRepository.deleteGroceryById(id);
     }
