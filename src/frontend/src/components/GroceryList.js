@@ -1,9 +1,14 @@
 import Article from "./Article";
-import { faPlus, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+    faPlus,
+    faArrowLeft,
+    faTriangleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { useState } from "react";
 
 const GroceryList = ({
     onSubmit,
@@ -26,6 +31,18 @@ const GroceryList = ({
     isDeletable,
     deleteGrocery,
 }) => {
+    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+
+    const confirmDelete = () => {
+        setShowConfirmDelete(true);
+        showModal();
+    };
+
+    const confirmChange = () => {
+        setShowConfirmDelete(false);
+        showModal();
+    };
+
     return (
         <main className="divStyles d-flex justify-content-center p-3">
             <div className="d-flex flex-column col-sm-10 p-4 bg-white rounded">
@@ -47,7 +64,7 @@ const GroceryList = ({
 
                     <button
                         className={"btn btn-danger"}
-                        onClick={deleteGrocery}
+                        onClick={confirmDelete}
                         style={
                             isDeletable
                                 ? { visibility: "visible" }
@@ -103,51 +120,74 @@ const GroceryList = ({
                     )}
                     <button
                         className="btn btn-success ms-auto"
-                        onClick={showModal}
+                        onClick={confirmChange}
                     >
                         Terminer
                     </button>
                 </section>
             </div>
-            <Modal show={show} onHide={closeModal} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Titre de l'épicerie</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form
-                        onSubmit={(e) =>
-                            onComplete(e, groceryName, articles, totalPrice)
-                        }
-                    >
-                        <Form.Group
-                            className="mt-3 mb-5"
-                            controlId="exampleForm.ControlInput1"
+
+            {showConfirmDelete ? (
+                <Modal show={show} onHide={closeModal} centered>
+                    <Modal.Header>
+                        <FontAwesomeIcon
+                            icon={faTriangleExclamation}
+                            className={"col fa-4x text-danger"}
+                        />
+                    </Modal.Header>
+                    <Modal.Body className={"text-center"}>
+                        Êtes-vous certain de vouloir supprimer cette épicerie?
+                    </Modal.Body>
+                    <Modal.Footer className={"d-flex justify-content-between"}>
+                        <Button variant="primary" onClick={closeModal}>
+                            Non, je veux annuler
+                        </Button>
+                        <Button variant="danger" onClick={deleteGrocery}>
+                            Oui, je suis certain
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            ) : (
+                <Modal show={show} onHide={closeModal} centered>
+                    <Modal.Header>
+                        <Modal.Title>Titre de l'épicerie</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form
+                            onSubmit={(e) =>
+                                onComplete(e, groceryName, articles, totalPrice)
+                            }
                         >
-                            <Form.Control
-                                type="text"
-                                placeholder="Entrez le nom de l'épicerie"
-                                value={groceryName}
-                                onChange={setGroceryName}
-                                autoFocus
-                                autoComplete="off"
-                                required
-                            />
-                        </Form.Group>
-                        <div className="d-flex flex-row-reverse">
-                            <Button variant="primary" type="submit">
-                                Sauvegarder
-                            </Button>
-                            <Button
-                                variant="danger"
-                                onClick={closeModal}
-                                className="me-2"
+                            <Form.Group
+                                className="mt-3 mb-5"
+                                controlId="exampleForm.ControlInput1"
                             >
-                                Annuler
-                            </Button>
-                        </div>
-                    </Form>
-                </Modal.Body>
-            </Modal>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Entrez le nom de l'épicerie"
+                                    value={groceryName}
+                                    onChange={setGroceryName}
+                                    autoFocus
+                                    autoComplete="off"
+                                    required
+                                />
+                            </Form.Group>
+                            <div className="d-flex flex-row-reverse">
+                                <Button variant="primary" type="submit">
+                                    Sauvegarder
+                                </Button>
+                                <Button
+                                    variant="danger"
+                                    onClick={closeModal}
+                                    className="me-2"
+                                >
+                                    Annuler
+                                </Button>
+                            </div>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
+            )}
         </main>
     );
 };
