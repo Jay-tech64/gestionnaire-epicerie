@@ -4,6 +4,8 @@ import {
     faArrowLeft,
     faTriangleExclamation,
     faTrash,
+    faClipboardCheck,
+    faCircleQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
@@ -34,14 +36,15 @@ const GroceryList = ({
     deleteGrocery,
 }) => {
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+    const [showConfirmComplete, setShowConfirmComplete] = useState(false);
 
     const confirmDelete = () => {
         setShowConfirmDelete(true);
         showModal();
     };
 
-    const confirmChange = () => {
-        setShowConfirmDelete(false);
+    const confirmComplete = () => {
+        setShowConfirmComplete(true);
         showModal();
     };
 
@@ -79,6 +82,13 @@ const GroceryList = ({
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu variant="dark">
+                            <Dropdown.Item onClick={confirmComplete}>
+                                <FontAwesomeIcon
+                                    icon={faClipboardCheck}
+                                    className={"me-2"}
+                                />
+                                Compléter l'épicerie
+                            </Dropdown.Item>
                             <Dropdown.Item onClick={confirmDelete}>
                                 <FontAwesomeIcon
                                     icon={faTrash}
@@ -135,7 +145,7 @@ const GroceryList = ({
                     )}
                     <button
                         className="btn btn-success ms-auto"
-                        onClick={confirmChange}
+                        onClick={showModal}
                     >
                         Terminer
                     </button>
@@ -143,7 +153,12 @@ const GroceryList = ({
             </div>
 
             {showConfirmDelete ? (
-                <Modal show={show} onHide={closeModal} centered>
+                <Modal
+                    show={show}
+                    onHide={closeModal}
+                    onExited={() => setShowConfirmDelete(false)}
+                    centered
+                >
                     <Modal.Header>
                         <FontAwesomeIcon
                             icon={faTriangleExclamation}
@@ -158,6 +173,34 @@ const GroceryList = ({
                             Non, je veux annuler
                         </Button>
                         <Button variant="danger" onClick={deleteGrocery}>
+                            Oui, je suis certain
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            ) : showConfirmComplete ? (
+                <Modal
+                    show={show}
+                    onHide={closeModal}
+                    onExited={() => setShowConfirmComplete(false)}
+                    centered
+                >
+                    <Modal.Header>
+                        <FontAwesomeIcon
+                            icon={faCircleQuestion}
+                            className={"col fa-4x text-primary"}
+                        />
+                    </Modal.Header>
+                    <Modal.Body className={"text-center"}>
+                        Êtes-vous certain de vouloir compléter cette épicerie?
+                    </Modal.Body>
+                    <Modal.Footer className={"d-flex justify-content-between"}>
+                        <Button variant="danger" onClick={closeModal}>
+                            Non, je veux annuler
+                        </Button>
+                        <Button
+                            variant="primary"
+                            onClick={() => console.log("Complete grocery...")}
+                        >
                             Oui, je suis certain
                         </Button>
                     </Modal.Footer>
