@@ -3,11 +3,13 @@ import {
     faPlus,
     faArrowLeft,
     faTriangleExclamation,
+    faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import Dropdown from "react-bootstrap/Dropdown";
 import { useState } from "react";
 
 const GroceryList = ({
@@ -62,17 +64,30 @@ const GroceryList = ({
                         {groceryName === "" ? "Nouvelle épicerie" : groceryName}
                     </h1>
 
-                    <button
-                        className={"btn btn-danger"}
-                        onClick={confirmDelete}
+                    <Dropdown
                         style={
                             isDeletable
                                 ? { visibility: "visible" }
                                 : { visibility: "hidden" }
                         }
                     >
-                        Supprimer
-                    </button>
+                        <Dropdown.Toggle
+                            id="dropdown-button-dark-example1"
+                            variant="secondary"
+                        >
+                            Options
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu variant="dark">
+                            <Dropdown.Item onClick={confirmDelete}>
+                                <FontAwesomeIcon
+                                    icon={faTrash}
+                                    className={"me-2"}
+                                />
+                                Supprimer l'épicerie
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </div>
                 <form onSubmit={onSubmit}>
                     <div className="d-flex my-4">
