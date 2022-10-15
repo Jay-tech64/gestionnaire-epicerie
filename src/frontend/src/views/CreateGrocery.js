@@ -14,6 +14,7 @@ const CreateGrocery = () => {
             owner: { name: state.owner, email: state.email },
             articles: articles,
             totalPrice: totalPrice,
+            isCompleted: false,
         };
 
         createGrocery(dto)

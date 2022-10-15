@@ -25,4 +25,6 @@ public class Grocery {
     @NonNull private List<Article> articles;
 
     @NonNull private float totalPrice;
+
+    @NonNull private boolean isCompleted;
 }

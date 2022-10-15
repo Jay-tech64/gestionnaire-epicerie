@@ -44,7 +44,7 @@ public class GroceryService {
         }
 
         if (owner.isPresent()) {
-            Grocery grocery = new Grocery(dto.name(), owner.get(), articleList, dto.totalPrice());
+            Grocery grocery = new Grocery(dto.name(), owner.get(), articleList, dto.totalPrice(), dto.isCompleted());
             groceryRepository.save(grocery);
         }
     }
@@ -64,7 +64,8 @@ public class GroceryService {
                             grocery.getArticles().stream().map(article -> new ArticleDto(
                                     article.getName(),
                                     article.getPrice())).toList(),
-                            grocery.getTotalPrice()
+                            grocery.getTotalPrice(),
+                            grocery.isCompleted()
                     )
             ).toList();
 

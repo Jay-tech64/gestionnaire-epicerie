@@ -34,6 +34,7 @@ const GroceryList = ({
     navigateDashboard,
     isDeletable,
     deleteGrocery,
+    completeGrocery,
 }) => {
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showConfirmComplete, setShowConfirmComplete] = useState(false);
@@ -199,7 +200,14 @@ const GroceryList = ({
                         </Button>
                         <Button
                             variant="primary"
-                            onClick={() => console.log("Complete grocery...")}
+                            onClick={(e) =>
+                                completeGrocery(
+                                    e,
+                                    groceryName,
+                                    articles,
+                                    totalPrice
+                                )
+                            }
                         >
                             Oui, je suis certain
                         </Button>

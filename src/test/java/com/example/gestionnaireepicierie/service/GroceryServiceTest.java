@@ -5,8 +5,6 @@ import com.example.gestionnaireepicierie.controllers.payload.request.GroceryDto;
 import com.example.gestionnaireepicierie.controllers.payload.response.UserDto;
 import com.example.gestionnaireepicierie.entities.Article;
 import com.example.gestionnaireepicierie.repositories.ArticleRepository;
-import com.example.gestionnaireepicierie.repositories.GroceryRepository;
-import com.example.gestionnaireepicierie.repositories.UserRepository;
 import com.example.gestionnaireepicierie.services.GroceryService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,12 +26,6 @@ import static org.mockito.Mockito.when;
 public class GroceryServiceTest {
 
     @Mock
-    GroceryRepository groceryRepository;
-
-    @Mock
-    UserRepository userRepository;
-
-    @Mock
     ArticleRepository articleRepository;
 
     @InjectMocks
@@ -53,7 +45,8 @@ public class GroceryServiceTest {
                 1L, "IGA",
                 mockUser,
                 List.of(mockArticle1, mockArticle2, mockArticle3),
-                7.97f);
+                7.97f,
+                false);
         when(articleRepository.findArticleByNameAndPrice("Tomate", 1.99f)).thenReturn(article1);
         when(articleRepository.findArticleByNameAndPrice("Patate", 3.99f)).thenReturn(article2);
         when(articleRepository.findArticleByNameAndPrice("Pomme", 1.99f)).thenReturn(article3);
@@ -76,7 +69,8 @@ public class GroceryServiceTest {
                 1L, "IGA",
                 mockUser,
                 List.of(mockArticle1, mockArticle2),
-                7.97f);
+                7.97f,
+                false);
         when(articleRepository.findArticleByNameAndPrice(anyString(), anyFloat())).thenReturn(article);
 
         // Act & Assert

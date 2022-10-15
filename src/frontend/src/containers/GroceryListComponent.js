@@ -10,6 +10,7 @@ const GroceryListComponent = ({
     groceryName,
     groceryArticles,
     isDeletable,
+    completeGrocery,
 }) => {
     const [name, setName] = useState(
         typeof groceryName === "undefined" ? "" : groceryName
@@ -97,6 +98,7 @@ const GroceryListComponent = ({
             navigateDashboard={() => history.goBack()}
             isDeletable={isDeletable}
             deleteGrocery={handleDeleteGrocery}
+            completeGrocery={completeGrocery}
         />
     );
 };

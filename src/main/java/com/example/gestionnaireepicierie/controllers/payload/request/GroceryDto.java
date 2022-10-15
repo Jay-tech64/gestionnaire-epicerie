@@ -10,6 +10,8 @@ public record GroceryDto(
         @NotBlank String name,
         @NotBlank UserDto owner,
         @NotBlank List<ArticleDto> articles,
-        @NotBlank float totalPrice
+        @NotBlank float totalPrice,
+
+        @NotBlank boolean isCompleted
 ) {
 }

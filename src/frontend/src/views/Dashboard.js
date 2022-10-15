@@ -91,18 +91,20 @@ const Dashboard = () => {
                         <h1 className="fs-3">Mes épiceries</h1>
                     </div>
                     <ul className="mx-3">
-                        {groceries.map((grocery, i) => (
-                            <li
-                                key={i}
-                                className="row"
-                                onClick={() => handleGetGrocery(grocery)}
-                            >
-                                <p className="col-sm-8">{grocery.name}</p>
-                                <p className="col-sm-4 text-end">
-                                    {grocery.totalPrice.toFixed(2)} $
-                                </p>
-                            </li>
-                        ))}
+                        {groceries
+                            .filter((entry) => !entry.isCompleted)
+                            .map((grocery, i) => (
+                                <li
+                                    key={i}
+                                    className="row"
+                                    onClick={() => handleGetGrocery(grocery)}
+                                >
+                                    <p className="col-sm-8">{grocery.name}</p>
+                                    <p className="col-sm-4 text-end">
+                                        {grocery.totalPrice.toFixed(2)} $
+                                    </p>
+                                </li>
+                            ))}
                     </ul>
                 </article>
             </section>

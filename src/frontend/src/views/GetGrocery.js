@@ -19,11 +19,31 @@ const GetGrocery = () => {
             owner: owner,
             articles: groceryArticles,
             totalPrice: totalPrice,
+            isCompleted: false,
         };
         updateGrocery(dto)
             .then(() => {
                 history.push("/dashboard");
             })
+            .catch((err) => console.log(err));
+    };
+
+    const handleCompleteGrocery = (
+        e,
+        groceryName,
+        groceryArticles,
+        totalPrice
+    ) => {
+        const dto = {
+            id: id,
+            name: groceryName,
+            owner: owner,
+            articles: groceryArticles,
+            totalPrice: totalPrice,
+            isCompleted: true,
+        };
+        updateGrocery(dto)
+            .then(() => history.push("/dashboard"))
             .catch((err) => console.log(err));
     };
 
@@ -35,6 +55,7 @@ const GetGrocery = () => {
                 groceryName={name}
                 groceryArticles={articles}
                 isDeletable={true}
+                completeGrocery={handleCompleteGrocery}
             />
         </div>
     );
