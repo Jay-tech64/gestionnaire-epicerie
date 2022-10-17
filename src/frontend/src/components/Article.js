@@ -1,7 +1,14 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Article = ({ value, price, deleteArticle, doCapitalize, onClick }) => {
+const Article = ({
+    value,
+    price,
+    deleteArticle,
+    doCapitalize,
+    onClick,
+    isCompleted,
+}) => {
     const capitalize = (string) =>
         string[0].toUpperCase() + string.toLowerCase().slice(1);
 
@@ -19,6 +26,11 @@ const Article = ({ value, price, deleteArticle, doCapitalize, onClick }) => {
             <button
                 className="btn btn-danger mx-2"
                 onClick={() => deleteArticle(value)}
+                style={
+                    !isCompleted
+                        ? { visibility: "visible" }
+                        : { visibility: "hidden" }
+                }
             >
                 <FontAwesomeIcon icon={faTrash} />
             </button>

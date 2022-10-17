@@ -10,6 +10,7 @@ const GetGrocery = () => {
     const name = state?.name;
     const articles = state?.articles;
     const owner = state?.owner;
+    const isCompleted = state?.isCompleted;
 
     const handleComplete = (e, groceryName, groceryArticles, totalPrice) => {
         e.preventDefault();
@@ -56,6 +57,7 @@ const GetGrocery = () => {
                 groceryArticles={articles}
                 isDeletable={true}
                 completeGrocery={handleCompleteGrocery}
+                isCompleted={isCompleted}
             />
         </div>
     );

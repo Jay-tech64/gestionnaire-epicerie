@@ -11,6 +11,7 @@ const GroceryListComponent = ({
     groceryArticles,
     isDeletable,
     completeGrocery,
+    isCompleted,
 }) => {
     const [name, setName] = useState(
         typeof groceryName === "undefined" ? "" : groceryName
@@ -99,6 +100,7 @@ const GroceryListComponent = ({
             isDeletable={isDeletable}
             deleteGrocery={handleDeleteGrocery}
             completeGrocery={completeGrocery}
+            isCompleted={isCompleted}
         />
     );
 };
@@ -108,6 +110,7 @@ GroceryListComponent.prototype = {
     groceryId: PropTypes.number,
     groceryName: PropTypes.string,
     groceryArticles: PropTypes.array,
+    isCompleted: PropTypes.bool,
 };
 
 export default GroceryListComponent;

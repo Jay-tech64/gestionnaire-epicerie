@@ -6,6 +6,7 @@ import {
     faTrash,
     faClipboardCheck,
     faCircleQuestion,
+    faShareNodes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
@@ -35,6 +36,7 @@ const GroceryList = ({
     isDeletable,
     deleteGrocery,
     completeGrocery,
+    isCompleted,
 }) => {
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showConfirmComplete, setShowConfirmComplete] = useState(false);
@@ -83,49 +85,64 @@ const GroceryList = ({
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu variant="dark">
-                            <Dropdown.Item onClick={confirmComplete}>
+                            {!isCompleted && (
+                                <Dropdown.Item onClick={confirmComplete}>
+                                    <FontAwesomeIcon
+                                        icon={faClipboardCheck}
+                                        className={"me-2"}
+                                    />
+                                    Compléter l'épicerie
+                                </Dropdown.Item>
+                            )}
+                            <Dropdown.Item
+                                onClick={() => console.log("Partager")}
+                            >
                                 <FontAwesomeIcon
-                                    icon={faClipboardCheck}
+                                    icon={faShareNodes}
                                     className={"me-2"}
                                 />
-                                Compléter l'épicerie
+                                Partager l'épicerie
                             </Dropdown.Item>
-                            <Dropdown.Item onClick={confirmDelete}>
-                                <FontAwesomeIcon
-                                    icon={faTrash}
-                                    className={"me-2"}
-                                />
-                                Supprimer l'épicerie
-                            </Dropdown.Item>
+                            {!isCompleted && (
+                                <Dropdown.Item onClick={confirmDelete}>
+                                    <FontAwesomeIcon
+                                        icon={faTrash}
+                                        className={"me-2"}
+                                    />
+                                    Supprimer l'épicerie
+                                </Dropdown.Item>
+                            )}
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-                <form onSubmit={onSubmit}>
-                    <div className="d-flex my-4">
-                        <input
-                            type="text"
-                            className="flex-grow-1 rounded"
-                            placeholder="Ajouter un élément à votre épicerie"
-                            value={item}
-                            onChange={setItem}
-                            ref={inputFocus}
-                            autoFocus
-                            required
-                        />
-                        <input
-                            type="number"
-                            step="0.01"
-                            className="rounded mx-1"
-                            placeholder="Prix"
-                            value={price}
-                            onChange={setPrice}
-                            required
-                        />
-                        <button className="btn btn-info mx-2">
-                            <FontAwesomeIcon icon={faPlus} />
-                        </button>
-                    </div>
-                </form>
+                {!isCompleted && (
+                    <form onSubmit={onSubmit}>
+                        <div className="d-flex my-4">
+                            <input
+                                type="text"
+                                className="flex-grow-1 rounded"
+                                placeholder="Ajouter un élément à votre épicerie"
+                                value={item}
+                                onChange={setItem}
+                                ref={inputFocus}
+                                autoFocus
+                                required
+                            />
+                            <input
+                                type="number"
+                                step="0.01"
+                                className="rounded mx-1"
+                                placeholder="Prix"
+                                value={price}
+                                onChange={setPrice}
+                                required
+                            />
+                            <button className="btn btn-info mx-2">
+                                <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                        </div>
+                    </form>
+                )}
                 <section>
                     {articles.map((article, i) => (
                         <Article
@@ -135,6 +152,7 @@ const GroceryList = ({
                             price={article.price}
                             deleteArticle={onDelete}
                             doCapitalize={true}
+                            isCompleted={isCompleted}
                         />
                     ))}
                 </section>
@@ -147,6 +165,11 @@ const GroceryList = ({
                     <button
                         className="btn btn-success ms-auto"
                         onClick={showModal}
+                        style={
+                            !isCompleted
+                                ? { visibility: "visible" }
+                                : { visibility: "hidden" }
+                        }
                     >
                         Terminer
                     </button>

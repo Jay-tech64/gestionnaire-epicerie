@@ -6,6 +6,7 @@ import { createBrowserHistory } from "history";
 import {
     faShoppingBasket,
     faArrowRightFromBracket,
+    faClockRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -56,19 +57,31 @@ const Dashboard = () => {
                     <h1>Gestionnaire d'épicerie</h1>
                     <p className="fs-3">Bonjour, {name}</p>
                 </div>
-                <div className="links">
+                <div className="links d-flex flex-column">
                     <Link
                         to={{
                             pathname: "/create-grocery",
                             state: { owner: name, email: email },
                         }}
-                        className="btn btn-primary"
+                        className="btn btn-primary mb-2"
                     >
                         <FontAwesomeIcon
                             icon={faShoppingBasket}
                             className={"me-2"}
                         />
                         Nouvelle épicerie
+                    </Link>
+                    <Link
+                        to={{
+                            pathname: "/history",
+                        }}
+                        className="btn btn-primary"
+                    >
+                        <FontAwesomeIcon
+                            icon={faClockRotateLeft}
+                            className={"me-2"}
+                        />
+                        Historique
                     </Link>
                 </div>
                 <button

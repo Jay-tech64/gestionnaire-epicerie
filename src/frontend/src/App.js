@@ -4,6 +4,7 @@ import Home from "./views/Home";
 import NotFound from "./components/NotFound";
 import CreateGrocery from "./views/CreateGrocery";
 import GetGrocery from "./views/GetGrocery";
+import GroceriesHistory from "./views/GroceriesHistory";
 
 function App() {
     return (
@@ -21,6 +22,9 @@ function App() {
                     </Route>
                     <Route path="/get-grocery">
                         <GetGrocery />
+                    </Route>
+                    <Route path="/history">
+                        <GroceriesHistory />
                     </Route>
                     <Route path="*">
                         <NotFound />
