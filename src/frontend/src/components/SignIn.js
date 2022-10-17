@@ -45,7 +45,7 @@ const SignIn = ({
                     />
                 </div>
 
-                <div className="d-flex mb-3">
+                <div className="d-flex align-items-center mb-3">
                     {isLoading ? (
                         <button className="btn btn-info" disabled>
                             <div className="spinner-border" role="status">
@@ -59,7 +59,14 @@ const SignIn = ({
                             Se connecter
                         </button>
                     )}
-                    <p className="m-2 text-danger fw-bold">{errorMessage}</p>
+                    {errorMessage && (
+                        <p
+                            className="m-2 text-danger fw-bold p-1 rounded"
+                            style={{ backgroundColor: "rgb(240, 128, 128)" }}
+                        >
+                            {errorMessage}
+                        </p>
+                    )}
                 </div>
 
                 <div className="my-3">

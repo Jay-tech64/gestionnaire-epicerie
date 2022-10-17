@@ -16,7 +16,7 @@ public class AuthService {
     private UserRepository userRepository;
 
     public UserDto signIn(SignInDto dto){
-        User user = userRepository.findUserByEmail(dto.email())
+        User user = userRepository.findUserByEmailAndPassword(dto.email(), dto.password())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
         return new UserDto(user.getName(), user.getEmail());
 
