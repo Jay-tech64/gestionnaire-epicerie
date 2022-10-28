@@ -35,15 +35,15 @@ input[type=number] {
     margin: 0;
 }
 
-article[id="groceriesList"] ul::-webkit-scrollbar {
+article ul::-webkit-scrollbar {
     display: none;
 }
 
-article[id="groceriesList"] {
+article {
     box-shadow: 2px 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-article[id="groceriesList"] .header {
+article .header {
     border: 2px solid black;
     padding: 0 10px;
     height: 20%;

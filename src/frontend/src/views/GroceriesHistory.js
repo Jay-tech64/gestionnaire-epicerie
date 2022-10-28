@@ -1,26 +1,13 @@
-import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
-import { getGroceriesByUser } from "../services/GroceryService";
+import useFetchUserGroceries from "../hooks/useFetchUserGroceries";
 
 const GroceriesHistory = () => {
-    const [groceries, setGroceries] = useState([]);
-    const name = localStorage.getItem("userName");
+    const { groceries } = useFetchUserGroceries();
     const email = localStorage.getItem("userEmail");
+    const name = localStorage.getItem("userName");
     const history = useHistory();
-
-    useEffect(() => {
-        if (!email) {
-            history.replace("/");
-            return;
-        }
-        getGroceriesByUser(email)
-            .then((response) => {
-                setGroceries(response.data);
-            })
-            .catch((err) => console.log(err));
-    }, [email, history]);
 
     const handleGetGrocery = (grocery) => {
         history.push({
