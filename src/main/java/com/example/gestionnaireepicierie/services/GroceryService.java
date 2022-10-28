@@ -90,4 +90,14 @@ public class GroceryService {
     public void deleteGrocery(Long id) {
         groceryRepository.deleteGroceryById(id);
     }
+
+    public Float getGroceriesTotalPrice(String userEmail) {
+        Optional<User> userOptional = userRepository.findUserByEmail(userEmail);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return groceryRepository.getTotalPriceOfAllGroceriesByOwner(user);
+        } else {
+            return null;
+        }
+    }
 }

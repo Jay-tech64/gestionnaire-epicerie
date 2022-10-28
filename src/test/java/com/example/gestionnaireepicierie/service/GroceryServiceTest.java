@@ -78,29 +78,4 @@ public class GroceryServiceTest {
                 .isInstanceOf(ResponseStatusException.class)
                 .extracting("status").isEqualTo(HttpStatus.CONFLICT);
     }
-
-    @Test
-    public void deleteGroceryHappyDay() {
-        addGroceryHappyDay();
-
-
-//        Article article1 = new Article("Tomate", 1.99f);
-//        Article article2 = new Article("Patate", 3.99f);
-//        Article article3 = new Article("Pomme", 1.99f);
-//        User owner = new User("Jeremy", "jeremy@test.com", "123");
-//        List<Article> articleList1 = List.of(article1, article2);
-//        List<Article> articleList2 = List.of(article3);
-//        Grocery grocery1 = new Grocery("IGA", owner, articleList1, 5.98f);
-//        Grocery grocery2 = new Grocery("Super C", owner, articleList2, 1.99f);
-//        when(groceryRepository.save(grocery1)).thenReturn(grocery1);
-//        when(groceryRepository.save(grocery2)).thenReturn(grocery2);
-//        groceryRepository.save(grocery1);
-//        groceryRepository.save(grocery2);
-//
-//
-//        groceryService.deleteGrocery(1L);
-//
-//        assertThat(groceryRepository.getGroceryById(1L).isPresent()).isFalse();
-//        assertThat(groceryRepository.getGroceryById(2L).isPresent()).isTrue();
-    }
 }

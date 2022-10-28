@@ -22,6 +22,11 @@ public class GroceryController {
         return ResponseEntity.ok(groceryService.getGroceriesByUser(email));
     }
 
+    @GetMapping("/groceries/totalPrice")
+    public ResponseEntity<Float> getGroceriesTotalPrice(@RequestParam String email){
+        return ResponseEntity.ok(groceryService.getGroceriesTotalPrice(email));
+    }
+
     @PostMapping("/groceries")
     public ResponseEntity<Void> addGrocery(@RequestBody GroceryDto dto) {
         groceryService.addGrocery(dto);

@@ -16,12 +16,11 @@ const Dashboard = () => {
 
     return (
         <div className="divStyles p-3 d-flex justify-content-around">
-            <Navbar logout={handleLogout}/>
+            <Navbar logout={handleLogout} />
             <section className="d-flex col-md-7 col-lg-8 row rounded">
                 <UserGroceries />
                 <UserStats />
             </section>
-
         </div>
     );
 };
