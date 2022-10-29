@@ -1,10 +1,18 @@
 import chart from "../assets/chart.png";
 import { useEffect, useState } from "react";
 import { getAllGroceriesTotalPrice } from "../services/GroceryService";
+import { PieChart, Pie, Legend, Cell } from "recharts";
+import useFetchUserGroceries from "../hooks/useFetchUserGroceries";
 
 const UserStats = () => {
+    const { groceries } = useFetchUserGroceries();
     const email = localStorage.getItem("userEmail");
     const [sumTotalPrices, setSumTotalPrices] = useState("");
+    const data = groceries.map((grocery) => {
+        return { name: grocery.name, value: grocery.totalPrice };
+    });
+    const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+    const RADIAN = Math.PI / 180;
 
     useEffect(() => {
         getAllGroceriesTotalPrice(email)
@@ -14,7 +22,32 @@ const UserStats = () => {
             .catch((err) => {
                 console.log(err);
             });
-    });
+    }, [email]);
+
+    const renderCustomizedLabel = ({
+        cx,
+        cy,
+        midAngle,
+        innerRadius,
+        outerRadius,
+        percent,
+    }) => {
+        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+        return (
+            <text
+                x={x}
+                y={y}
+                fill="white"
+                textAnchor={x > cx ? "start" : "end"}
+                dominantBaseline="central"
+            >
+                {`${(percent * 100).toFixed(0)}%`}
+            </text>
+        );
+    };
 
     return (
         <article className="m-3 p-2 h-90 col-sm-6 bg-white">
@@ -23,6 +56,34 @@ const UserStats = () => {
             </div>
             {sumTotalPrices ? (
                 <div>
+                    <p
+                        className={"fs-4 m-0"}
+                        style={{
+                            fontFamily: "'Fuzzy Bubbles', cursive",
+                        }}
+                    >
+                        Répartition du prix total des épiceries :
+                    </p>
+                    <PieChart width={400} height={400}>
+                        <Legend verticalAlign="top" />
+                        <Pie
+                            data={data}
+                            cx={200}
+                            cy={200}
+                            labelLine={false}
+                            label={renderCustomizedLabel}
+                            outerRadius={80}
+                            fill="#8884d8"
+                            dataKey="value"
+                        >
+                            {data.map((entry, index) => (
+                                <Cell
+                                    key={`cell-${index}`}
+                                    fill={COLORS[index % COLORS.length]}
+                                />
+                            ))}
+                        </Pie>
+                    </PieChart>
                     <p
                         className={"fs-4 m-0"}
                         style={{
