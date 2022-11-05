@@ -1,9 +1,14 @@
-import PropTypes from 'prop-types';
-import {Link} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightFromBracket, faClockRotateLeft, faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faArrowRightFromBracket,
+    faClockRotateLeft,
+    faShoppingBasket,
+    faPeopleGroup,
+} from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = ({logout}) => {
+const Navbar = ({ logout }) => {
     const name = localStorage.getItem("userName");
     const email = localStorage.getItem("userEmail");
 
@@ -34,7 +39,7 @@ const Navbar = ({logout}) => {
                     to={{
                         pathname: "/history",
                     }}
-                    className="btn btn-primary"
+                    className="btn btn-primary mb-2"
                 >
                     <FontAwesomeIcon
                         icon={faClockRotateLeft}
@@ -42,11 +47,17 @@ const Navbar = ({logout}) => {
                     />
                     Historique
                 </Link>
+                <Link
+                    to={{
+                        pathname: "/groups",
+                    }}
+                    className="btn btn-primary mb-2"
+                >
+                    <FontAwesomeIcon icon={faPeopleGroup} className={"me-2"} />
+                    Mes groupes
+                </Link>
             </div>
-            <button
-                className="btn btn-danger mt-auto"
-                onClick={logout}
-            >
+            <button className="btn btn-danger mt-auto" onClick={logout}>
                 <FontAwesomeIcon
                     icon={faArrowRightFromBracket}
                     className={"me-2"}
@@ -58,7 +69,7 @@ const Navbar = ({logout}) => {
 };
 
 Navbar.propTypes = {
-    logout: PropTypes.func.isRequired
+    logout: PropTypes.func.isRequired,
 };
 
 export default Navbar;
