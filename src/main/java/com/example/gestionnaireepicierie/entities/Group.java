@@ -6,24 +6,18 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "GROUPS")
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
-public class User {
+public class Group {
+
     @Id
     @GeneratedValue
     private Long id;
-
+    
     @NonNull private String name;
-
-    @NonNull private String email;
-
-    @NonNull private String password;
-
+    
     @OneToMany
-    private List<Grocery> groceries;
-
-    @ManyToOne
-    private Group group;
+    @NonNull private List<User> members;
 }
