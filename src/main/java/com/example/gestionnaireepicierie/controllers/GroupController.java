@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @CrossOrigin
 @RestController
 @AllArgsConstructor
@@ -16,7 +18,7 @@ public class GroupController {
     private final GroupService groupService;
 
     @PostMapping("/new-group")
-    public ResponseEntity<Void> createGroup(@RequestBody NewGroupDto dto){
+    public ResponseEntity<Void> createGroup(@Valid @RequestBody NewGroupDto dto){
         groupService.createGroup(dto);
         return ResponseEntity.accepted().build();
     }
