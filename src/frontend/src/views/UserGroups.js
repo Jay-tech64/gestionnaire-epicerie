@@ -10,6 +10,7 @@ import family from "../assets/family.png";
 import { Form, Modal } from "react-bootstrap";
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
+import GroupCard from "../components/GroupCard";
 
 const UserGroups = ({
     show,
@@ -18,6 +19,7 @@ const UserGroups = ({
     groupName,
     changeGroupName,
     createGroup,
+    userGroups,
 }) => {
     const history = useHistory();
 
@@ -28,7 +30,7 @@ const UserGroups = ({
             >
                 <div
                     className={
-                        "d-flex justify-content-between align-items-center"
+                        "d-flex justify-content-between align-items-center mb-4"
                     }
                 >
                     <button
@@ -61,28 +63,39 @@ const UserGroups = ({
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-                <div
-                    className={
-                        "d-flex flex-column align-items-center justify-content-center h-100"
-                    }
-                >
-                    <img
-                        className={"mb-3"}
-                        src={family}
-                        alt={"Icône d'une famille"}
-                    />
-                    <p
-                        style={{
-                            fontFamily: "'Fuzzy Bubbles', cursive",
-                            fontSize: "20px",
-                        }}
+                {userGroups.length === 0 ? (
+                    <div
+                        className={
+                            "d-flex flex-column align-items-center justify-content-center h-100"
+                        }
                     >
-                        Vous n'avez aucun groupe pour l'instant
-                    </p>
-                    <button className={"btn btn-primary"} onClick={showModal}>
-                        Créer un groupe
-                    </button>
-                </div>
+                        <img
+                            className={"mb-3"}
+                            src={family}
+                            alt={"Icône d'une famille"}
+                        />
+                        <p
+                            style={{
+                                fontFamily: "'Fuzzy Bubbles', cursive",
+                                fontSize: "20px",
+                            }}
+                        >
+                            Vous n'avez aucun groupe pour l'instant
+                        </p>
+                        <button
+                            className={"btn btn-primary"}
+                            onClick={showModal}
+                        >
+                            Créer un groupe
+                        </button>
+                    </div>
+                ) : (
+                    <div>
+                        {userGroups.map((group, index) => (
+                            <GroupCard key={index} groupInfo={group} />
+                        ))}
+                    </div>
+                )}
             </div>
 
             <Modal show={show} onHide={closeModal} centered>
@@ -128,6 +141,7 @@ UserGroups.propTypes = {
     groupName: PropTypes.string.isRequired,
     changeGroupName: PropTypes.func.isRequired,
     createGroup: PropTypes.func.isRequired,
+    userGroups: PropTypes.array.isRequired,
 };
 
 export default UserGroups;

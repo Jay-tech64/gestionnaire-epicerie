@@ -3,6 +3,7 @@ import { useState } from "react";
 import { createGroup } from "../services/GroupService";
 
 const UserGroupsContainer = () => {
+    const [userGroups, setUserGroups] = useState([]);
     const [show, setShow] = useState(false);
     const [groupName, setGroupName] = useState("");
     const name = localStorage.getItem("userName");
@@ -22,6 +23,8 @@ const UserGroupsContainer = () => {
         createGroup(dto)
             .then((response) => {
                 console.log(response);
+                setUserGroups([dto]);
+                setShow(false);
             })
             .catch((err) => {
                 console.log(err);
@@ -36,6 +39,7 @@ const UserGroupsContainer = () => {
             groupName={groupName}
             changeGroupName={({ target }) => setGroupName(target.value)}
             createGroup={handleCreateGroup}
+            userGroups={userGroups}
         />
     );
 };
