@@ -69,4 +69,28 @@ public class GroupeServiceTest {
                 .extracting("status").isEqualTo(HttpStatus.NOT_FOUND);
 
     }
+
+    @Test
+    void getGroupsByOwnerHappyDay(){
+        // Arrange
+        User mockUser = new User("Jérémy", "jeremy@test.com", "123");
+        when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(mockUser));
+
+        // Act
+        groupService.getGroupsByUser(mockUser.getEmail());
+
+        // Assert
+        verify(userRepository).findUserByEmail(mockUser.getEmail());
+    }
+
+    @Test
+    void getGroupsByOwnerNotFound(){
+        // Arrange
+        User mockUser = new User("Jérémy", "jeremy@test.com", "123");
+
+        // Act
+        assertThatThrownBy(() -> groupService.getGroupsByUser(mockUser.getEmail()))
+                .isInstanceOf(ResponseStatusException.class)
+                .extracting("status").isEqualTo(HttpStatus.NOT_FOUND);
+    }
 }
