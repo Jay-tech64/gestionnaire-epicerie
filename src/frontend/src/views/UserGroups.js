@@ -7,8 +7,18 @@ import {
 import { useHistory } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import family from "../assets/family.png";
+import { Form, Modal } from "react-bootstrap";
+import PropTypes from "prop-types";
+import Button from "react-bootstrap/Button";
 
-const UserGroups = () => {
+const UserGroups = ({
+    show,
+    closeModal,
+    showModal,
+    groupName,
+    changeGroupName,
+    createGroup,
+}) => {
     const history = useHistory();
 
     return (
@@ -69,13 +79,55 @@ const UserGroups = () => {
                     >
                         Vous n'avez aucun groupe pour l'instant
                     </p>
-                    <button className={"btn btn-primary"}>
+                    <button className={"btn btn-primary"} onClick={showModal}>
                         Créer un groupe
                     </button>
                 </div>
             </div>
+
+            <Modal show={show} onHide={closeModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Titre du groupe</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlInput1"
+                        >
+                            <Form.Label>
+                                Entrez le nom du groupe à créer
+                            </Form.Label>
+                            <Form.Control
+                                type="email"
+                                placeholder="Ex. Les chasseurs de rabais"
+                                value={groupName}
+                                onChange={changeGroupName}
+                                autoFocus
+                            />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={closeModal}>
+                        Annuler
+                    </Button>
+                    <Button variant="primary" onClick={createGroup}>
+                        Sauvegarder
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </main>
     );
+};
+
+UserGroups.propTypes = {
+    show: PropTypes.bool.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    showModal: PropTypes.func.isRequired,
+    groupName: PropTypes.string.isRequired,
+    changeGroupName: PropTypes.func.isRequired,
+    createGroup: PropTypes.func.isRequired,
 };
 
 export default UserGroups;

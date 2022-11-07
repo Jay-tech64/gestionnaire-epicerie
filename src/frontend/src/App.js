@@ -5,7 +5,7 @@ import NotFound from "./components/NotFound";
 import CreateGrocery from "./views/CreateGrocery";
 import GetGrocery from "./views/GetGrocery";
 import GroceriesHistory from "./views/GroceriesHistory";
-import UserGroups from "./views/UserGroups";
+import UserGroupsContainer from "./containers/UserGroupsContainer";
 
 function App() {
     return (
@@ -28,7 +28,7 @@ function App() {
                         <GroceriesHistory />
                     </Route>
                     <Route path="/groups">
-                        <UserGroups />
+                        <UserGroupsContainer />
                     </Route>
                     <Route path="*">
                         <NotFound />
