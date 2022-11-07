@@ -33,7 +33,8 @@ public class GroupControllerTest {
     void createGroupHappyDay() throws Exception{
         // Arrange
         List<UserDto> mockUserDto = List.of(new UserDto("Jérémy", "jeremy@test.com"));
-        NewGroupDto dto = new NewGroupDto("Famille Mailhot", mockUserDto);
+        UserDto mockOwner = new UserDto("Jérémy", "jeremy@test.com");
+        NewGroupDto dto = new NewGroupDto("Famille Mailhot", mockOwner, mockUserDto);
 
         // Act & Assert
         mockMvc.perform(post("/new-group")
@@ -44,7 +45,7 @@ public class GroupControllerTest {
     @Test
     void createGroupBadRequest() throws Exception{
         // Arrange
-        NewGroupDto dto = new NewGroupDto(null, null);
+        NewGroupDto dto = new NewGroupDto(null, null, null);
 
         mockMvc.perform(post("/new-group")
                 .contentType(MediaType.APPLICATION_JSON)

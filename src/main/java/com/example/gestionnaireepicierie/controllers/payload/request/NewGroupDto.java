@@ -8,5 +8,7 @@ import java.util.List;
 
 public record NewGroupDto(
         @NotBlank(message = "group-name-is-mandatory") String name,
+
+        @NotNull(message = "owner-is-mandatory") UserDto owner,
         @NotNull(message = "members-are-mandatory") List<UserDto> members
 ){}

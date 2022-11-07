@@ -26,4 +26,7 @@ public class User {
 
     @ManyToMany
     private List<Group> groupList;
+
+    @OneToMany
+    private List<Group> ownedGroup;
 }

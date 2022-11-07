@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,8 @@ public class GroupeServiceTest {
     void createGroupHappyDay(){
         // Arrange
         List<UserDto> mockUserDto = List.of(new UserDto("Jérémy", "jeremy@test.com"));
-        NewGroupDto mockNewGroupDto = new NewGroupDto("Famille Mailhot", mockUserDto);
+        UserDto mockOwner = new UserDto("Jérémy", "jeremy@test.com");
+        NewGroupDto mockNewGroupDto = new NewGroupDto("Famille Mailhot", mockOwner, mockUserDto);
         User mockUser = new User("Jérémy", "jeremy@test.com", "It's a secret");
         when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
@@ -50,7 +52,7 @@ public class GroupeServiceTest {
         groupService.createGroup(mockNewGroupDto);
 
         // Assert
-        verify(userRepository).findUserByEmail(mockUser.getEmail());
+        verify(userRepository, times(2)).findUserByEmail(mockUser.getEmail());
         verify(groupRepository).save(any(Group.class));
     }
 
@@ -58,7 +60,8 @@ public class GroupeServiceTest {
     void createGroupUserNotFound(){
         // Arrange
         List<UserDto> mockUserDto = List.of(new UserDto("Jérémy", "jeremy@test.com"));
-        NewGroupDto mockNewGroupDto = new NewGroupDto("Famille Mailhot", mockUserDto);
+        UserDto mockOwner = new UserDto("Jérémy", "jeremy@test.com");
+        NewGroupDto mockNewGroupDto = new NewGroupDto("Famille Mailhot", mockOwner, mockUserDto);
 
         // Act & Assert
         assertThatThrownBy(() -> groupService.createGroup(mockNewGroupDto))

@@ -17,6 +17,9 @@ public class Group {
     private Long id;
     
     @NonNull private String name;
+
+    @ManyToOne
+    @NonNull private User owner;
     
     @ManyToMany
     @NonNull private List<User> members;

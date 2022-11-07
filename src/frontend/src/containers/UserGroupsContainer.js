@@ -1,6 +1,6 @@
 import UserGroups from "../views/UserGroups";
-import { useState } from "react";
-import { createGroup } from "../services/GroupService";
+import { useEffect, useState } from "react";
+import { createGroup, getGroupsByUser } from "../services/GroupService";
 
 const UserGroupsContainer = () => {
     const [userGroups, setUserGroups] = useState([]);
@@ -9,10 +9,25 @@ const UserGroupsContainer = () => {
     const name = localStorage.getItem("userName");
     const email = localStorage.getItem("userEmail");
 
+    useEffect(() => {
+        getGroupsByUser(email)
+            .then((response) => {
+                console.log(response.data);
+                setUserGroups(response.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
     const handleCreateGroup = (e) => {
         e.preventDefault();
         const dto = {
             name: groupName,
+            owner: {
+                name: name,
+                email: email,
+            },
             members: [
                 {
                     name: name,
