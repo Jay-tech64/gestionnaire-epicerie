@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faArrowLeft,
     faArrowsDownToPeople,
+    faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -51,6 +52,13 @@ const UserGroups = ({
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu variant="dark">
+                            <Dropdown.Item onClick={showModal}>
+                                <FontAwesomeIcon
+                                    icon={faCirclePlus}
+                                    className={"me-2"}
+                                />
+                                Créer un groupe
+                            </Dropdown.Item>
                             <Dropdown.Item
                                 onClick={() => console.log("Partager")}
                             >
@@ -103,7 +111,7 @@ const UserGroups = ({
                     <Modal.Title>Titre du groupe</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form onSubmit={createGroup}>
                         <Form.Group
                             className="mb-3"
                             controlId="exampleForm.ControlInput1"
@@ -112,7 +120,7 @@ const UserGroups = ({
                                 Entrez le nom du groupe à créer
                             </Form.Label>
                             <Form.Control
-                                type="email"
+                                type="text"
                                 placeholder="Ex. Les chasseurs de rabais"
                                 value={groupName}
                                 onChange={changeGroupName}

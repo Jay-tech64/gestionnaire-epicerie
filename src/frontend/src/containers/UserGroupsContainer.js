@@ -9,7 +9,8 @@ const UserGroupsContainer = () => {
     const name = localStorage.getItem("userName");
     const email = localStorage.getItem("userEmail");
 
-    const handleCreateGroup = () => {
+    const handleCreateGroup = (e) => {
+        e.preventDefault();
         const dto = {
             name: groupName,
             members: [
@@ -23,7 +24,8 @@ const UserGroupsContainer = () => {
         createGroup(dto)
             .then((response) => {
                 console.log(response);
-                setUserGroups([dto]);
+                setUserGroups([...userGroups, dto]);
+                setGroupName("");
                 setShow(false);
             })
             .catch((err) => {

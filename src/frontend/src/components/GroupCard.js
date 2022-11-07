@@ -5,7 +5,7 @@ const GroupCard = ({ groupInfo }) => {
     return (
         <div
             className={
-                "d-flex justify-content-between align-items-center rounded p-2"
+                "d-flex justify-content-between align-items-center rounded p-2 mb-3"
             }
             style={{ border: "1px solid black" }}
         >
