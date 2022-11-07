@@ -18,6 +18,6 @@ public class Group {
     
     @NonNull private String name;
     
-    @OneToMany
+    @ManyToMany
     @NonNull private List<User> members;
 }

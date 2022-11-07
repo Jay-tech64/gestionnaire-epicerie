@@ -24,6 +24,6 @@ public class User {
     @OneToMany
     private List<Grocery> groceries;
 
-    @ManyToOne
-    private Group group;
+    @ManyToMany
+    private List<Group> groupList;
 }
