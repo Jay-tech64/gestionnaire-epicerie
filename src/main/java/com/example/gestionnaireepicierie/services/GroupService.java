@@ -1,6 +1,7 @@
 package com.example.gestionnaireepicierie.services;
 
 import com.example.gestionnaireepicierie.controllers.payload.request.NewGroupDto;
+import com.example.gestionnaireepicierie.controllers.payload.response.UserDto;
 import com.example.gestionnaireepicierie.entities.Group;
 import com.example.gestionnaireepicierie.entities.User;
 import com.example.gestionnaireepicierie.repositories.GroupRepository;
@@ -43,5 +44,11 @@ public class GroupService {
 
         group.getMembers().add(user);
         groupRepository.save(group);
+    }
+
+    public List<UserDto> getMembersByGroup(long groupId) {
+        Group group = groupRepository.findGroupById(groupId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return group.getMembers().stream().map(member -> new UserDto(member.getName(), member.getEmail())).toList();
     }
 }

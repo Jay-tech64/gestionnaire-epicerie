@@ -1,6 +1,7 @@
 package com.example.gestionnaireepicierie.controllers;
 
 import com.example.gestionnaireepicierie.controllers.payload.request.NewGroupDto;
+import com.example.gestionnaireepicierie.controllers.payload.response.UserDto;
 import com.example.gestionnaireepicierie.entities.Group;
 import com.example.gestionnaireepicierie.services.GroupService;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,11 @@ public class GroupController {
     @GetMapping("/groups/user/{email}")
     public ResponseEntity<List<Group>> getGroupsByUser(@PathVariable String email){
         return ResponseEntity.ok(groupService.getGroupsByUser(email));
+    }
+
+    @GetMapping("/groups/{groupId}/get-members")
+    public ResponseEntity<List<UserDto>> getMembersByGroup(@PathVariable String groupId){
+        return ResponseEntity.ok(groupService.getMembersByGroup(Long.parseLong(groupId)));
     }
 
     @PostMapping("/new-group")

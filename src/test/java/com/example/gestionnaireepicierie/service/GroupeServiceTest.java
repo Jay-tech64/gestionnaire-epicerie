@@ -138,4 +138,35 @@ public class GroupeServiceTest {
                 .isInstanceOf(ResponseStatusException.class)
                 .extracting("status").isEqualTo(HttpStatus.NOT_FOUND);
     }
+
+    @Test
+    void getMembersByGroupHappyDay(){
+        User mockOwner = new User("Jérémy", "jeremy@test.com", "123");
+        User mockUser = new User("Marko", "marko@test.com", "123");
+        List<User> mockList = new ArrayList<>();
+        mockList.add(mockOwner);
+        mockList.add(mockUser);
+        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner, mockList);
+        mockGroup.setId(1L);
+        when(groupRepository.findGroupById(anyLong())).thenReturn(Optional.of(mockGroup));
+
+        List<UserDto> userDtos = groupService.getMembersByGroup(mockGroup.getId());
+
+        assertThat(userDtos.size()).isEqualTo(2);
+    }
+
+    @Test
+    void getMembersByGroupGroupNotFound(){
+        User mockOwner = new User("Jérémy", "jeremy@test.com", "123");
+        User mockUser = new User("Marko", "marko@test.com", "123");
+        List<User> mockList = new ArrayList<>();
+        mockList.add(mockOwner);
+        mockList.add(mockUser);
+        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner, mockList);
+        mockGroup.setId(1L);
+
+        assertThatThrownBy(() -> groupService.getMembersByGroup(mockGroup.getId()))
+                .isInstanceOf(ResponseStatusException.class)
+                .extracting("status").isEqualTo(HttpStatus.NOT_FOUND);
+    }
 }
