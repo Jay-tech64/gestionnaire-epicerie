@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const GroupCard = ({ groupInfo }) => {
+    const history = useHistory();
+
     return (
         <div
             className={
@@ -21,7 +24,16 @@ const GroupCard = ({ groupInfo }) => {
                     )}
                 </div>
             </div>
-            <button className={"btn btn-primary"}>Voir détails</button>
+            <button
+                className={"btn btn-primary"}
+                onClick={() =>
+                    history.push({
+                        pathname: "/group-details",
+                    })
+                }
+            >
+                Voir détails
+            </button>
         </div>
     );
 };
