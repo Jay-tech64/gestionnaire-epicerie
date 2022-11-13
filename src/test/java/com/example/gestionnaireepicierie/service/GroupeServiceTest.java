@@ -17,12 +17,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,6 +90,51 @@ public class GroupeServiceTest {
 
         // Act
         assertThatThrownBy(() -> groupService.getGroupsByUser(mockUser.getEmail()))
+                .isInstanceOf(ResponseStatusException.class)
+                .extracting("status").isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void addUserToGroupHappyDay(){
+        User mockOwner = new User("Jérémy", "jeremy@test.com", "123");
+        User mockUser = new User("Marko", "marko@test.com", "123");
+        List<User> mockList = new ArrayList<>();
+        mockList.add(mockOwner);
+        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner, mockList);
+        mockGroup.setId(1L);
+        when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(mockUser));
+        when(groupRepository.findGroupById(anyLong())).thenReturn(Optional.of(mockGroup));
+
+        groupService.addUserToGroup(mockGroup.getId(), mockUser.getEmail());
+
+        assertThat(mockGroup.getMembers().size()).isEqualTo(2);
+    }
+
+    @Test
+    void addUserToGroupGroupNotFound(){
+        User mockOwner = new User("Jérémy", "jeremy@test.com", "123");
+        User mockUser = new User("Marko", "marko@test.com", "123");
+        List<User> mockList = new ArrayList<>();
+        mockList.add(mockOwner);
+        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner, mockList);
+        mockGroup.setId(1L);
+        when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(mockUser));
+
+        assertThatThrownBy(() -> groupService.addUserToGroup(mockGroup.getId(), mockUser.getEmail()))
+                .isInstanceOf(ResponseStatusException.class)
+                .extracting("status").isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void addUserToGroupUserNotFound(){
+        User mockOwner = new User("Jérémy", "jeremy@test.com", "123");
+        User mockUser = new User("Marko", "marko@test.com", "123");
+        List<User> mockList = new ArrayList<>();
+        mockList.add(mockOwner);
+        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner, mockList);
+        mockGroup.setId(1L);
+
+        assertThatThrownBy(() -> groupService.addUserToGroup(mockGroup.getId(), mockUser.getEmail()))
                 .isInstanceOf(ResponseStatusException.class)
                 .extracting("status").isEqualTo(HttpStatus.NOT_FOUND);
     }

@@ -26,4 +26,10 @@ public class GroupController {
         groupService.createGroup(dto);
         return ResponseEntity.accepted().build();
     }
+
+    @PostMapping("/groups/{groupId}/add-user/{email}")
+    public ResponseEntity<Void> addUserToGroup(@PathVariable String groupId, @PathVariable String email){
+        groupService.addUserToGroup(Long.parseLong(groupId), email);
+        return ResponseEntity.accepted().build();
+    }
 }

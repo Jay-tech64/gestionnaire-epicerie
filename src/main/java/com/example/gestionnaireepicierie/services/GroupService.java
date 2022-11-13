@@ -34,4 +34,14 @@ public class GroupService {
 
         return groupRepository.getGroupByOwner(user);
     }
+
+    public void addUserToGroup(long groupId, String email) {
+        User user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Group group = groupRepository.findGroupById(groupId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        group.getMembers().add(user);
+        groupRepository.save(group);
+    }
 }

@@ -54,8 +54,9 @@ const GroupDetails = () => {
                 </header>
                 <section>
                     <h2>Membres</h2>
-                    {members.map((member) => (
+                    {members.map((member, index) => (
                         <div
+                            key={index}
                             className={
                                 "d-flex justify-content-between align-items-center rounded py-2 px-3"
                             }
