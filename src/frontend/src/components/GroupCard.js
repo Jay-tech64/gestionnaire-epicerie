@@ -29,6 +29,7 @@ const GroupCard = ({ groupInfo }) => {
                 onClick={() =>
                     history.push({
                         pathname: "/group-details",
+                        state: groupInfo,
                     })
                 }
             >
