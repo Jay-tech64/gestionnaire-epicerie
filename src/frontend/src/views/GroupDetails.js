@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useHistory, useLocation } from "react-router-dom";
+import { getMembersByGroup } from "../services/GroceryService";
 
 const GroupDetails = () => {
     const history = useHistory();
     const location = useLocation();
     const { state } = location;
+    const groupId = state?.id;
     const groupName = state?.name;
     const members = state?.members;
     const owner = state?.owner;
+
+    useEffect(() => {
+        getMembersByGroup(groupId)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
     return (
         <main className={"divStyles d-flex justify-content-center p-3"}>

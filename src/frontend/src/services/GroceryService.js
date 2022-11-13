@@ -23,3 +23,9 @@ export const updateGrocery = async (dto) => {
 export const deleteGrocery = async (groceryId) => {
     return axios.delete(`/groceries/${groceryId}`);
 };
+
+export const getMembersByGroup = async (groupId) => {
+    return axios.get(`/groups/${groupId}/get-members`, {
+        headers: { "Content-Type": "application/json" },
+    });
+};
