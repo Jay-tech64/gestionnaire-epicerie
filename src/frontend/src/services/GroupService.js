@@ -11,3 +11,13 @@ export const createGroup = async (dto) => {
         headers: { "Content-Type": "application/json" },
     });
 };
+
+export const addUserToGroup = async (groupId, userEmail) => {
+    return axios.post(
+        `/groups/${groupId}/add-user/${userEmail}`,
+        {},
+        {
+            headers: { "Content-Type": "application/json" },
+        }
+    );
+};
