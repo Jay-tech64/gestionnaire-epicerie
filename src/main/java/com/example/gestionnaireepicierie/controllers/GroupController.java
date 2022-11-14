@@ -28,9 +28,8 @@ public class GroupController {
     }
 
     @PostMapping("/new-group")
-    public ResponseEntity<Void> createGroup(@Valid @RequestBody NewGroupDto dto){
-        groupService.createGroup(dto);
-        return ResponseEntity.accepted().build();
+    public ResponseEntity<Group> createGroup(@Valid @RequestBody NewGroupDto dto){
+        return ResponseEntity.ok(groupService.createGroup(dto));
     }
 
     @PostMapping("/groups/{groupId}/add-user/{email}")

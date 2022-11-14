@@ -18,7 +18,7 @@ public class GroupService {
     private GroupRepository groupRepository;
     private UserRepository userRepository;
 
-    public void createGroup(NewGroupDto dto) {
+    public Group createGroup(NewGroupDto dto) {
         List<User> userList = dto.members().stream().map(userDto -> userRepository.findUserByEmail(
                 userDto.email()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)))
                 .toList();
@@ -27,6 +27,7 @@ public class GroupService {
 
         Group group = new Group(dto.name(), owner, userList);
         groupRepository.save(group);
+        return group;
     }
 
     public List<Group> getGroupsByUser(String email) {

@@ -39,7 +39,7 @@ const UserGroupsContainer = () => {
         createGroup(dto)
             .then((response) => {
                 console.log(response);
-                setUserGroups([...userGroups, dto]);
+                setUserGroups([...userGroups, response.data]);
                 setGroupName("");
                 setShow(false);
             })
