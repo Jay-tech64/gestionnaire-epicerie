@@ -72,8 +72,12 @@ const GroupDetails = ({
                                 <p className={"fs-4 m-0"}>{member.name}</p>
                                 <p className={"m-0"}>{member.email}</p>
                             </div>
-                            {owner.email === member.email && (
+                            {owner.email === member.email ? (
                                 <p className={"m-0"}>Admin</p>
+                            ) : (
+                                <p className={"m-0"}>
+                                    En attente d'approbation
+                                </p>
                             )}
                         </div>
                     ))}
