@@ -67,6 +67,10 @@ article[id="groceriesList"] ul li:hover {
     background-color: rgba(125, 119, 119, 0.2);
 }
 
+.notifications {
+    margin: 0;
+}
+
 
 
 

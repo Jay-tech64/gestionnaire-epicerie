@@ -6,6 +6,7 @@ import {
     faClockRotateLeft,
     faShoppingBasket,
     faPeopleGroup,
+    faBell,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = ({ logout }) => {
@@ -55,6 +56,15 @@ const Navbar = ({ logout }) => {
                 >
                     <FontAwesomeIcon icon={faPeopleGroup} className={"me-2"} />
                     Mes groupes
+                </Link>
+                <Link
+                    to={{
+                        pathname: "/notifications",
+                    }}
+                    className="btn btn-primary mb-2"
+                >
+                    <FontAwesomeIcon icon={faBell} className={"me-2"} />
+                    Notifications <span className="badge bg-danger">4</span>
                 </Link>
             </div>
             <button className="btn btn-danger mt-auto" onClick={logout}>

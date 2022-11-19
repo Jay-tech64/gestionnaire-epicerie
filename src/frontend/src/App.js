@@ -7,6 +7,7 @@ import GetGrocery from "./views/GetGrocery";
 import GroceriesHistory from "./views/GroceriesHistory";
 import UserGroupsContainer from "./containers/UserGroupsContainer";
 import GroupDetailsContainer from "./containers/GroupDetailsContainer";
+import NotificationsContainer from "./containers/NotificationsContainer";
 
 function App() {
     return (
@@ -33,6 +34,9 @@ function App() {
                     </Route>
                     <Route path="/group-details">
                         <GroupDetailsContainer />
+                    </Route>
+                    <Route path="/notifications">
+                        <NotificationsContainer />
                     </Route>
                     <Route path="*">
                         <NotFound />
