@@ -12,7 +12,6 @@ const UserGroupsContainer = () => {
     useEffect(() => {
         getGroupsByUser(email)
             .then((response) => {
-                console.log(response.data);
                 setUserGroups(response.data);
             })
             .catch((err) => {

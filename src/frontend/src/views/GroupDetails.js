@@ -20,6 +20,10 @@ const GroupDetails = ({
 }) => {
     const history = useHistory();
 
+    function isOwner(member) {
+        return owner.email === member?.owner?.email;
+    }
+
     return (
         <main className={"divStyles d-flex justify-content-center p-3"}>
             <div
@@ -69,12 +73,15 @@ const GroupDetails = ({
                             style={{ border: "1px solid black" }}
                         >
                             <div>
-                                <p className={"fs-4 m-0"}>{member.name}</p>
-                                <p className={"m-0"}>{member.email}</p>
+                                <p className={"fs-4 m-0"}>
+                                    {member?.owner?.name}
+                                </p>
+                                <p className={"m-0"}>{member?.owner?.email}</p>
                             </div>
-                            {owner.email === member.email ? (
-                                <p className={"m-0"}>Admin</p>
-                            ) : (
+                            {isOwner(member) && (
+                                <p className={"m-0"}>Propriétaire</p>
+                            )}
+                            {!isOwner(member) && !member?.isActive && (
                                 <p className={"m-0"}>
                                     En attente d'approbation
                                 </p>

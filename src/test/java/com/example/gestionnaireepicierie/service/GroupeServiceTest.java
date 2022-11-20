@@ -141,7 +141,7 @@ public class GroupeServiceTest {
         mockGroup.setId(1L);
         when(groupRepository.findGroupById(anyLong())).thenReturn(Optional.of(mockGroup));
 
-        List<UserDto> userDtos = groupService.getMembersByGroup(mockGroup.getId());
+        List<Membership> userDtos = groupService.getMembersByGroup(mockGroup.getId());
 
         assertThat(userDtos.size()).isEqualTo(2);
     }

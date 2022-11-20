@@ -18,6 +18,7 @@ const GroupDetailsContainer = () => {
     useEffect(() => {
         getMembersByGroup(groupId)
             .then((response) => {
+                console.log(response.data);
                 setMembers(response.data);
             })
             .catch((err) => {

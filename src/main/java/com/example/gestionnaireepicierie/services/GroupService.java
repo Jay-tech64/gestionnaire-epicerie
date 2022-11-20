@@ -1,7 +1,6 @@
 package com.example.gestionnaireepicierie.services;
 
 import com.example.gestionnaireepicierie.controllers.payload.request.NewGroupDto;
-import com.example.gestionnaireepicierie.controllers.payload.response.UserDto;
 import com.example.gestionnaireepicierie.entities.Group;
 import com.example.gestionnaireepicierie.entities.Membership;
 import com.example.gestionnaireepicierie.entities.User;
@@ -35,24 +34,21 @@ public class GroupService {
         return groupRepository.getGroupByOwner(user);
     }
 
-    public UserDto addUserToGroup(long groupId, String email) {
+    public Membership addUserToGroup(long groupId, String email) {
         User user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Group group = groupRepository.findGroupById(groupId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Membership membership = new Membership(user, group, false);
 
-        group.getMembers().add(new Membership(user, group, false));
+        group.getMembers().add(membership);
         groupRepository.save(group);
-        return new UserDto(user.getName(), user.getEmail());
+        return membership;
     }
 
-    public List<UserDto> getMembersByGroup(long groupId) {
+    public List<Membership> getMembersByGroup(long groupId) {
         Group group = groupRepository.findGroupById(groupId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return group.getMembers().stream().map(
-                membership -> new UserDto(
-                        membership.getOwner().getName(),
-                        membership.getOwner().getEmail())
-        ).toList();
+        return group.getMembers();
     }
 }
