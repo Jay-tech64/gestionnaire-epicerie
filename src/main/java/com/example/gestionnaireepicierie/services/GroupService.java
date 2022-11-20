@@ -45,7 +45,7 @@ public class GroupService {
         Membership membership = new Membership(user, group, false);
         Notification notification = new Notification(
                 user,
-                group.getOwner().getName() + " vous invite à son groupe " + group.getName());
+                group.getOwner().getName() + " vous invite à son groupe \"" + group.getName() + "\"");
         notificationRepository.save(notification);
         group.getMembers().add(membership);
         groupRepository.save(group);

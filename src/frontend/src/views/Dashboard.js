@@ -14,7 +14,6 @@ const Dashboard = () => {
     useEffect(() => {
         getNotificationByUser(userEmail)
             .then((response) => {
-                console.log(response.data);
                 setNotifications(response.data);
             })
             .catch((err) => {
