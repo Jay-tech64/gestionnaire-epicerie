@@ -3,6 +3,7 @@ package com.example.gestionnaireepicierie.service;
 import com.example.gestionnaireepicierie.controllers.payload.request.NewGroupDto;
 import com.example.gestionnaireepicierie.controllers.payload.response.UserDto;
 import com.example.gestionnaireepicierie.entities.Group;
+import com.example.gestionnaireepicierie.entities.Membership;
 import com.example.gestionnaireepicierie.entities.User;
 import com.example.gestionnaireepicierie.repositories.GroupRepository;
 import com.example.gestionnaireepicierie.repositories.UserRepository;
@@ -20,9 +21,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,11 +48,10 @@ public class GroupeServiceTest {
         when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
         // Act
-        groupService.createGroup(mockNewGroupDto);
+        Group group = groupService.createGroup(mockNewGroupDto);
 
         // Assert
-        verify(userRepository, times(2)).findUserByEmail(mockUser.getEmail());
-        verify(groupRepository).save(any(Group.class));
+        assertThat(group.getMembers().size()).isEqualTo(1);
     }
 
     @Test
@@ -98,9 +96,7 @@ public class GroupeServiceTest {
     void addUserToGroupHappyDay(){
         User mockOwner = new User("Jérémy", "jeremy@test.com", "123");
         User mockUser = new User("Marko", "marko@test.com", "123");
-        List<User> mockList = new ArrayList<>();
-        mockList.add(mockOwner);
-        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner, mockList);
+        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner);
         mockGroup.setId(1L);
         when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(mockUser));
         when(groupRepository.findGroupById(anyLong())).thenReturn(Optional.of(mockGroup));
@@ -114,9 +110,7 @@ public class GroupeServiceTest {
     void addUserToGroupGroupNotFound(){
         User mockOwner = new User("Jérémy", "jeremy@test.com", "123");
         User mockUser = new User("Marko", "marko@test.com", "123");
-        List<User> mockList = new ArrayList<>();
-        mockList.add(mockOwner);
-        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner, mockList);
+        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner);
         mockGroup.setId(1L);
         when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
@@ -129,9 +123,7 @@ public class GroupeServiceTest {
     void addUserToGroupUserNotFound(){
         User mockOwner = new User("Jérémy", "jeremy@test.com", "123");
         User mockUser = new User("Marko", "marko@test.com", "123");
-        List<User> mockList = new ArrayList<>();
-        mockList.add(mockOwner);
-        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner, mockList);
+        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner);
         mockGroup.setId(1L);
 
         assertThatThrownBy(() -> groupService.addUserToGroup(mockGroup.getId(), mockUser.getEmail()))
@@ -143,10 +135,9 @@ public class GroupeServiceTest {
     void getMembersByGroupHappyDay(){
         User mockOwner = new User("Jérémy", "jeremy@test.com", "123");
         User mockUser = new User("Marko", "marko@test.com", "123");
-        List<User> mockList = new ArrayList<>();
-        mockList.add(mockOwner);
-        mockList.add(mockUser);
-        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner, mockList);
+        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner);
+        Membership mockMembership = new Membership(mockUser, mockGroup, false);
+        mockGroup.getMembers().add(mockMembership);
         mockGroup.setId(1L);
         when(groupRepository.findGroupById(anyLong())).thenReturn(Optional.of(mockGroup));
 
@@ -159,10 +150,11 @@ public class GroupeServiceTest {
     void getMembersByGroupGroupNotFound(){
         User mockOwner = new User("Jérémy", "jeremy@test.com", "123");
         User mockUser = new User("Marko", "marko@test.com", "123");
-        List<User> mockList = new ArrayList<>();
-        mockList.add(mockOwner);
-        mockList.add(mockUser);
-        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner, mockList);
+        Group mockGroup = new Group("Les chasseurs de rabais", mockOwner);
+        Membership mockMembership = new Membership(mockOwner, mockGroup, true);
+        Membership mockMembership2 = new Membership(mockUser, mockGroup, false);
+        mockGroup.getMembers().add(mockMembership);
+        mockGroup.getMembers().add(mockMembership2);
         mockGroup.setId(1L);
 
         assertThatThrownBy(() -> groupService.getMembersByGroup(mockGroup.getId()))

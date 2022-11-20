@@ -24,9 +24,12 @@ public class User {
     @OneToMany
     private List<Grocery> groceries;
 
-    @ManyToMany
-    private List<Group> groupList;
+    @OneToMany
+    private List<Membership> subscriptions;
 
     @OneToMany
     private List<Group> ownedGroup;
+
+    @OneToMany
+    private List<Notification> notifications;
 }
