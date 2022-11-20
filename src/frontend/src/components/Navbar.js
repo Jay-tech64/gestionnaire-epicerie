@@ -9,7 +9,7 @@ import {
     faBell,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = ({ logout }) => {
+const Navbar = ({ logout, notifications }) => {
     const name = localStorage.getItem("userName");
     const email = localStorage.getItem("userEmail");
 
@@ -64,7 +64,12 @@ const Navbar = ({ logout }) => {
                     className="btn btn-primary mb-2"
                 >
                     <FontAwesomeIcon icon={faBell} className={"me-2"} />
-                    Notifications <span className="badge bg-danger">4</span>
+                    Notifications{" "}
+                    {notifications.length > 0 && (
+                        <span className="badge bg-danger">
+                            {notifications.length}
+                        </span>
+                    )}
                 </Link>
             </div>
             <button className="btn btn-danger mt-auto" onClick={logout}>
@@ -80,6 +85,7 @@ const Navbar = ({ logout }) => {
 
 Navbar.propTypes = {
     logout: PropTypes.func.isRequired,
+    notifications: PropTypes.array.isRequired,
 };
 
 export default Navbar;

@@ -3,8 +3,10 @@ package com.example.gestionnaireepicierie.services;
 import com.example.gestionnaireepicierie.controllers.payload.request.NewGroupDto;
 import com.example.gestionnaireepicierie.entities.Group;
 import com.example.gestionnaireepicierie.entities.Membership;
+import com.example.gestionnaireepicierie.entities.Notification;
 import com.example.gestionnaireepicierie.entities.User;
 import com.example.gestionnaireepicierie.repositories.GroupRepository;
+import com.example.gestionnaireepicierie.repositories.NotificationRepository;
 import com.example.gestionnaireepicierie.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import java.util.List;
 public class GroupService {
     private GroupRepository groupRepository;
     private UserRepository userRepository;
+    private NotificationRepository notificationRepository;
 
     public Group createGroup(NewGroupDto dto) {
         User owner = userRepository.findUserByEmail(dto.owner().email())
@@ -40,7 +43,10 @@ public class GroupService {
         Group group = groupRepository.findGroupById(groupId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Membership membership = new Membership(user, group, false);
-
+        Notification notification = new Notification(
+                user,
+                group.getOwner().getName() + " vous invite à son groupe " + group.getName());
+        notificationRepository.save(notification);
         group.getMembers().add(membership);
         groupRepository.save(group);
         return membership;
