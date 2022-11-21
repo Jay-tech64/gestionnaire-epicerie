@@ -80,4 +80,21 @@ public class GroupService {
 
         groupRepository.save(group);
     }
+
+    @Transactional
+    public void declineInvitation(long groupId, InvitationResponseDto dto) {
+        Group group = groupRepository.findGroupById(groupId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Membership member = group.getMembers().stream().filter(membership ->
+                        membership.getOwner().getEmail()
+                                .equals(dto.userEmail())).findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        group.getMembers().remove(member);
+        membershipRepository.deleteByOwner(member.getOwner());
+        notificationRepository.deleteNotificationById(dto.notificationId());
+
+        groupRepository.save(group);
+    }
 }

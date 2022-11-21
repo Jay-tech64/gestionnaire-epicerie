@@ -64,7 +64,7 @@ const Notifications = ({ notifications, accept, decline }) => {
                                 </button>
                                 <button
                                     className={"btn btn-danger"}
-                                    onClick={decline}
+                                    onClick={() => decline(notification)}
                                 >
                                     Refuser
                                 </button>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Notifications from "../views/Notifications";
 import { getNotificationByUser } from "../services/NotificationService";
-import { acceptInvitation } from "../services/GroupService";
+import { acceptInvitation, declineInvitation } from "../services/GroupService";
 
 const NotificationsContainer = () => {
     const userEmail = localStorage.getItem("userEmail");
@@ -30,8 +30,27 @@ const NotificationsContainer = () => {
             });
     };
 
-    const handleDecline = () => {
-        console.log("Decline");
+    const handleDecline = (notification) => {
+        const dto = {
+            notificationId: notification.notificationId,
+            userEmail: userEmail,
+        };
+        declineInvitation(notification.groupId, dto)
+            .then((response) => {
+                console.log(response);
+            })
+            .finally(() =>
+                getNotificationByUser(userEmail)
+                    .then((response) => {
+                        setNotifications(response.data);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+            )
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     useEffect(() => {

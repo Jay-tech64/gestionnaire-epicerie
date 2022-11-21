@@ -27,3 +27,9 @@ export const acceptInvitation = async (groupId, dto) => {
         headers: { "Content-Type": "application/json" },
     });
 };
+
+export const declineInvitation = async (groupId, dto) => {
+    return axios.post(`/groups/${groupId}/decline-invitation`, dto, {
+        headers: { "Content-Type": "application/json" },
+    });
+};

@@ -45,4 +45,12 @@ public class GroupController {
         groupService.acceptInvitation(Long.parseLong(groupId), dto);
         return ResponseEntity.accepted().build();
     }
+
+    @PostMapping("/groups/{groupId}/decline-invitation")
+    public ResponseEntity<Void> declineInvitation(
+            @PathVariable String groupId,
+            @Valid @RequestBody InvitationResponseDto dto){
+        groupService.declineInvitation(Long.parseLong(groupId), dto);
+        return ResponseEntity.accepted().build();
+    }
 }
