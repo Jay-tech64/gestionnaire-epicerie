@@ -1,7 +1,6 @@
 package com.example.gestionnaireepicierie.services;
 
 import com.example.gestionnaireepicierie.controllers.payload.response.NotificationDto;
-import com.example.gestionnaireepicierie.controllers.payload.response.UserDto;
 import com.example.gestionnaireepicierie.entities.User;
 import com.example.gestionnaireepicierie.repositories.NotificationRepository;
 import com.example.gestionnaireepicierie.repositories.UserRepository;
@@ -23,9 +22,10 @@ public class NotificationService {
 
         return notificationRepository.getNotificationByRecipient(user).stream().map(
                 notification -> new NotificationDto(
-                        new UserDto(user.getName(), user.getEmail()),
-                        notification.getMessage()
-                )
+                        notification.getId(),
+                        notification.getGroupId(),
+                        notification.getMessage(),
+                        email)
         ).toList();
     }
 }

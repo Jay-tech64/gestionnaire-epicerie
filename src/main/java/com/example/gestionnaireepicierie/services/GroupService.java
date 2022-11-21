@@ -1,5 +1,6 @@
 package com.example.gestionnaireepicierie.services;
 
+import com.example.gestionnaireepicierie.controllers.payload.request.InvitationResponseDto;
 import com.example.gestionnaireepicierie.controllers.payload.request.NewGroupDto;
 import com.example.gestionnaireepicierie.entities.Group;
 import com.example.gestionnaireepicierie.entities.Membership;
@@ -11,6 +12,7 @@ import com.example.gestionnaireepicierie.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
@@ -45,7 +47,8 @@ public class GroupService {
         Membership membership = new Membership(user, group, false);
         Notification notification = new Notification(
                 user,
-                group.getOwner().getName() + " vous invite à son groupe \"" + group.getName() + "\"");
+                group.getOwner().getName() + " vous invite à son groupe \"" + group.getName() + "\"",
+                groupId);
         notificationRepository.save(notification);
         group.getMembers().add(membership);
         groupRepository.save(group);
@@ -56,5 +59,20 @@ public class GroupService {
         Group group = groupRepository.findGroupById(groupId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return group.getMembers();
+    }
+
+    @Transactional
+    public void acceptInvitation(long groupId, InvitationResponseDto dto) {
+        Group group = groupRepository.findGroupById(groupId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Membership member = group.getMembers().stream().filter(membership ->
+                membership.getOwner().getEmail()
+                        .equals(dto.userEmail())).findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        member.setIsActive(true);
+        notificationRepository.deleteNotificationById(dto.notificationId());
+
+        groupRepository.save(group);
     }
 }

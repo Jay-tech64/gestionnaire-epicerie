@@ -21,4 +21,7 @@ public class Notification {
 
     @NonNull
     private String message;
+
+    @NonNull
+    private Long groupId;
 }

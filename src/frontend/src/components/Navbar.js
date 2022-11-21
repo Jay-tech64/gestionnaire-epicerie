@@ -60,7 +60,6 @@ const Navbar = ({ logout, notifications }) => {
                 <Link
                     to={{
                         pathname: "/notifications",
-                        state: { notifications: notifications },
                     }}
                     className="btn btn-primary mb-2"
                 >

@@ -1,14 +1,12 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import vacation from "../assets/vacation.png";
+import PropTypes from "prop-types";
 
-const Notifications = () => {
+const Notifications = ({ notifications, accept, decline }) => {
     const history = useHistory();
-    const location = useLocation();
-    const { state } = location;
-    const notifications = state?.notifications;
 
     return (
         <main className={"divStyles d-flex justify-content-center p-3"}>
@@ -58,10 +56,16 @@ const Notifications = () => {
                         >
                             <p className={"m-0"}>{notification.message}</p>
                             <div>
-                                <button className={"btn btn-primary me-2"}>
+                                <button
+                                    className={"btn btn-primary me-2"}
+                                    onClick={() => accept(notification)}
+                                >
                                     Accepter
                                 </button>
-                                <button className={"btn btn-danger"}>
+                                <button
+                                    className={"btn btn-danger"}
+                                    onClick={decline}
+                                >
                                     Refuser
                                 </button>
                             </div>
@@ -71,6 +75,12 @@ const Notifications = () => {
             </div>
         </main>
     );
+};
+
+Notifications.proptype = {
+    notifications: PropTypes.array.isRequired,
+    accept: PropTypes.func.isRequired,
+    decline: PropTypes.func.isRequired,
 };
 
 export default Notifications;

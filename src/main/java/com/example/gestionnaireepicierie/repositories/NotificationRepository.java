@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface NotificationRepository extends CrudRepository<Notification, Long> {
     List<Notification> getNotificationByRecipient(@NonNull User recipient);
+
+    void deleteNotificationById(Long id);
 }

@@ -1,5 +1,6 @@
 package com.example.gestionnaireepicierie.controllers;
 
+import com.example.gestionnaireepicierie.controllers.payload.request.InvitationResponseDto;
 import com.example.gestionnaireepicierie.controllers.payload.request.NewGroupDto;
 import com.example.gestionnaireepicierie.entities.Group;
 import com.example.gestionnaireepicierie.entities.Membership;
@@ -35,5 +36,13 @@ public class GroupController {
     @PostMapping("/groups/{groupId}/add-user/{email}")
     public ResponseEntity<Membership> addUserToGroup(@PathVariable String groupId, @PathVariable String email){
         return ResponseEntity.ok(groupService.addUserToGroup(Long.parseLong(groupId), email));
+    }
+
+    @PostMapping("/groups/{groupId}/accept-invitation")
+    public ResponseEntity<Void> acceptInvitation(
+            @PathVariable String groupId,
+            @Valid @RequestBody InvitationResponseDto dto){
+        groupService.acceptInvitation(Long.parseLong(groupId), dto);
+        return ResponseEntity.accepted().build();
     }
 }

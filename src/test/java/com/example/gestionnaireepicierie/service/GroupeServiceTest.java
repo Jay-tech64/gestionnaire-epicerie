@@ -6,6 +6,7 @@ import com.example.gestionnaireepicierie.entities.Group;
 import com.example.gestionnaireepicierie.entities.Membership;
 import com.example.gestionnaireepicierie.entities.User;
 import com.example.gestionnaireepicierie.repositories.GroupRepository;
+import com.example.gestionnaireepicierie.repositories.NotificationRepository;
 import com.example.gestionnaireepicierie.repositories.UserRepository;
 import com.example.gestionnaireepicierie.services.GroupService;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,9 @@ public class GroupeServiceTest {
 
     @Mock
     GroupRepository groupRepository;
+
+    @Mock
+    NotificationRepository notificationRepository;
 
     @InjectMocks
     private GroupService groupService;

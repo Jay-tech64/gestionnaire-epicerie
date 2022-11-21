@@ -21,3 +21,9 @@ export const addUserToGroup = async (groupId, userEmail) => {
         }
     );
 };
+
+export const acceptInvitation = async (groupId, dto) => {
+    return axios.post(`/groups/${groupId}/accept-invitation`, dto, {
+        headers: { "Content-Type": "application/json" },
+    });
+};
