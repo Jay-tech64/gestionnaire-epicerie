@@ -6,6 +6,7 @@ import com.example.gestionnaireepicierie.entities.Group;
 import com.example.gestionnaireepicierie.entities.Membership;
 import com.example.gestionnaireepicierie.entities.User;
 import com.example.gestionnaireepicierie.repositories.GroupRepository;
+import com.example.gestionnaireepicierie.repositories.MembershipRepository;
 import com.example.gestionnaireepicierie.repositories.NotificationRepository;
 import com.example.gestionnaireepicierie.repositories.UserRepository;
 import com.example.gestionnaireepicierie.services.GroupService;
@@ -38,6 +39,9 @@ public class GroupeServiceTest {
 
     @Mock
     NotificationRepository notificationRepository;
+
+    @Mock
+    MembershipRepository membershipRepository;
 
     @InjectMocks
     private GroupService groupService;

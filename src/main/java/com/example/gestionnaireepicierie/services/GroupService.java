@@ -7,6 +7,7 @@ import com.example.gestionnaireepicierie.entities.Membership;
 import com.example.gestionnaireepicierie.entities.Notification;
 import com.example.gestionnaireepicierie.entities.User;
 import com.example.gestionnaireepicierie.repositories.GroupRepository;
+import com.example.gestionnaireepicierie.repositories.MembershipRepository;
 import com.example.gestionnaireepicierie.repositories.NotificationRepository;
 import com.example.gestionnaireepicierie.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @Service
@@ -22,6 +24,8 @@ public class GroupService {
     private GroupRepository groupRepository;
     private UserRepository userRepository;
     private NotificationRepository notificationRepository;
+
+    private MembershipRepository membershipRepository;
 
     public Group createGroup(NewGroupDto dto) {
         User owner = userRepository.findUserByEmail(dto.owner().email())
@@ -35,8 +39,9 @@ public class GroupService {
     public List<Group> getGroupsByUser(String email) {
         User user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        List<Membership> membershipList = membershipRepository.getMembershipsByOwner(user);
 
-        return groupRepository.getGroupByOwner(user);
+        return membershipList.stream().map(Membership::getProvider).toList();
     }
 
     public Membership addUserToGroup(long groupId, String email) {
