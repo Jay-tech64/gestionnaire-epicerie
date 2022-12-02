@@ -49,6 +49,9 @@ public class GroupService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Group group = groupRepository.findGroupById(groupId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (group.getOwner() == user){
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
         Membership membership = new Membership(user, group, false);
         Notification notification = new Notification(
                 user,

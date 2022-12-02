@@ -39,6 +39,11 @@ const GroupDetailsContainer = () => {
                 if (err.response.status === 404) {
                     setErrorMessage("Cet utilisateur n'existe pas.");
                 }
+                if (err.response.status === 409) {
+                    setErrorMessage(
+                        "Vous ne pouvez pas vous invitez vous-même. ¯\\_(ツ)_/¯"
+                    );
+                }
             });
     };
     return (
