@@ -92,7 +92,7 @@ public class GroupService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         group.getMembers().remove(member);
-        membershipRepository.deleteByOwner(member.getOwner());
+        membershipRepository.deleteByOwnerAndProvider(member.getOwner(), group);
         notificationRepository.deleteNotificationById(dto.notificationId());
 
         groupRepository.save(group);
