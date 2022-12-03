@@ -1,10 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faArrowLeft,
-    faArrowsDownToPeople,
-    faCirclePlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import family from "../assets/family.png";
@@ -49,13 +45,14 @@ const UserGroups = ({ showModal, userGroups }) => {
                                 />
                                 Créer un groupe
                             </Dropdown.Item>
-                            <Dropdown.Item onClick={() => showModal("JOIN")}>
+                            {/*TODO: Implémenter un groupCode pour rejoindre le groupe*/}
+                            {/*<Dropdown.Item onClick={() => showModal("JOIN")}>
                                 <FontAwesomeIcon
                                     icon={faArrowsDownToPeople}
                                     className={"me-2"}
                                 />
                                 Rejoindre un groupe
-                            </Dropdown.Item>
+                            </Dropdown.Item>*/}
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
