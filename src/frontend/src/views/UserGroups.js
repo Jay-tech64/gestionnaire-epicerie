@@ -8,20 +8,10 @@ import {
 import { useHistory } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import family from "../assets/family.png";
-import { Form, Modal } from "react-bootstrap";
 import PropTypes from "prop-types";
-import Button from "react-bootstrap/Button";
 import GroupCard from "../components/GroupCard";
 
-const UserGroups = ({
-    show,
-    closeModal,
-    showModal,
-    groupName,
-    changeGroupName,
-    createGroup,
-    userGroups,
-}) => {
+const UserGroups = ({ showModal, userGroups }) => {
     const history = useHistory();
 
     return (
@@ -52,16 +42,14 @@ const UserGroups = ({
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu variant="dark">
-                            <Dropdown.Item onClick={showModal}>
+                            <Dropdown.Item onClick={() => showModal("CREATE")}>
                                 <FontAwesomeIcon
                                     icon={faCirclePlus}
                                     className={"me-2"}
                                 />
                                 Créer un groupe
                             </Dropdown.Item>
-                            <Dropdown.Item
-                                onClick={() => console.log("Partager")}
-                            >
+                            <Dropdown.Item onClick={() => showModal("JOIN")}>
                                 <FontAwesomeIcon
                                     icon={faArrowsDownToPeople}
                                     className={"me-2"}
@@ -92,7 +80,7 @@ const UserGroups = ({
                         </p>
                         <button
                             className={"btn btn-primary"}
-                            onClick={showModal}
+                            onClick={() => showModal("CREATE")}
                         >
                             Créer un groupe
                         </button>
@@ -105,50 +93,12 @@ const UserGroups = ({
                     </div>
                 )}
             </div>
-
-            <Modal show={show} onHide={closeModal} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Titre du groupe</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form onSubmit={createGroup}>
-                        <Form.Group
-                            className="mb-3"
-                            controlId="exampleForm.ControlInput1"
-                        >
-                            <Form.Label>
-                                Entrez le nom du groupe à créer
-                            </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Ex. Les chasseurs de rabais"
-                                value={groupName}
-                                onChange={changeGroupName}
-                                autoFocus
-                            />
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={closeModal}>
-                        Annuler
-                    </Button>
-                    <Button variant="primary" onClick={createGroup}>
-                        Sauvegarder
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </main>
     );
 };
 
 UserGroups.propTypes = {
-    show: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func.isRequired,
     showModal: PropTypes.func.isRequired,
-    groupName: PropTypes.string.isRequired,
-    changeGroupName: PropTypes.func.isRequired,
-    createGroup: PropTypes.func.isRequired,
     userGroups: PropTypes.array.isRequired,
 };
 
