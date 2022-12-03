@@ -8,6 +8,7 @@ import GroceriesHistory from "./views/GroceriesHistory";
 import UserGroupsContainer from "./containers/UserGroupsContainer";
 import GroupDetailsContainer from "./containers/GroupDetailsContainer";
 import NotificationsContainer from "./containers/NotificationsContainer";
+import SharedGroceriesContainer from "./containers/SharedGroceriesContainer";
 
 function App() {
     return (
@@ -37,6 +38,9 @@ function App() {
                     </Route>
                     <Route path="/notifications">
                         <NotificationsContainer />
+                    </Route>
+                    <Route path="/shared-groceries">
+                        <SharedGroceriesContainer />
                     </Route>
                     <Route path="*">
                         <NotFound />

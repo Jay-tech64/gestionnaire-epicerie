@@ -1,10 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+    faArrowLeft,
+    faUserPlus,
+    faCrown,
+} from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Form, Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import * as React from "react";
 
 const GroupDetails = ({
     show,
@@ -73,13 +78,28 @@ const GroupDetails = ({
                             style={{ border: "1px solid black" }}
                         >
                             <div>
-                                <p className={"fs-4 m-0"}>
-                                    {member?.owner?.name}
-                                </p>
+                                <div className={"d-flex align-items-center"}>
+                                    <p className={"fs-4 m-0 me-2"}>
+                                        {member?.owner?.name}
+                                    </p>
+                                    {isOwner(member) && (
+                                        <FontAwesomeIcon icon={faCrown} />
+                                    )}
+                                </div>
                                 <p className={"m-0"}>{member?.owner?.email}</p>
                             </div>
-                            {isOwner(member) && (
-                                <p className={"m-0"}>Propriétaire</p>
+                            {member?.isActive && (
+                                <Link
+                                    to={{
+                                        pathname: "/shared-groceries",
+                                        state: {
+                                            user: member?.owner,
+                                        },
+                                    }}
+                                    className={"btn btn-primary"}
+                                >
+                                    Voir épiceries
+                                </Link>
                             )}
                             {!isOwner(member) && !member?.isActive && (
                                 <p className={"m-0"}>
