@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import * as React from "react";
+import { Tooltip } from "@mui/material";
 
 const GroupDetails = ({
     show,
@@ -83,7 +84,13 @@ const GroupDetails = ({
                                         {member?.owner?.name}
                                     </p>
                                     {isOwner(member) && (
-                                        <FontAwesomeIcon icon={faCrown} />
+                                        <Tooltip
+                                            title={"Propriétaire du groupe"}
+                                            arrow
+                                            placement={"top"}
+                                        >
+                                            <FontAwesomeIcon icon={faCrown} />
+                                        </Tooltip>
                                     )}
                                 </div>
                                 <p className={"m-0"}>{member?.owner?.email}</p>
