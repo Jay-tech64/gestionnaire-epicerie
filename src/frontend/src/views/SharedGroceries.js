@@ -80,26 +80,30 @@ const SharedGroceries = ({ user }) => {
                                         .filter((entry) => !entry.isCompleted)
                                         .map((grocery, index) => (
                                             <div
+                                                className="d-flex justify-content-between align-items-center form-control my-2"
                                                 key={index}
-                                                className={
-                                                    "d-flex justify-content-between align-items-center rounded py-2 px-3 mb-2"
-                                                }
-                                                style={{
-                                                    border: "1px solid black",
-                                                }}
-                                                onClick={() =>
-                                                    handleGetGrocery(grocery)
-                                                }
                                             >
-                                                <p className="col-sm-8">
-                                                    {grocery.name}
-                                                </p>
-                                                <p className="col-sm-4 text-end">
-                                                    {grocery.totalPrice.toFixed(
-                                                        2
-                                                    )}{" "}
-                                                    $
-                                                </p>
+                                                <div className="ms-2 me-auto">
+                                                    <div className="fw-bold">
+                                                        {grocery.name}
+                                                    </div>
+                                                    <span className="badge bg-primary rounded-pill">
+                                                        {grocery.totalPrice.toFixed(
+                                                            2
+                                                        )}{" "}
+                                                        $
+                                                    </span>
+                                                </div>
+                                                <button
+                                                    className="btn btn-primary"
+                                                    onClick={() =>
+                                                        handleGetGrocery(
+                                                            grocery
+                                                        )
+                                                    }
+                                                >
+                                                    Détail
+                                                </button>
                                             </div>
                                         ))
                                 )}
@@ -122,26 +126,30 @@ const SharedGroceries = ({ user }) => {
                                         .filter((entry) => entry.isCompleted)
                                         .map((grocery, index) => (
                                             <div
+                                                className="d-flex justify-content-between align-items-center form-control my-2"
                                                 key={index}
-                                                className={
-                                                    "d-flex justify-content-between align-items-center rounded py-2 px-3 mb-2"
-                                                }
-                                                style={{
-                                                    border: "1px solid black",
-                                                }}
-                                                onClick={() =>
-                                                    handleGetGrocery(grocery)
-                                                }
                                             >
-                                                <p className="col-sm-8">
-                                                    {grocery.name}
-                                                </p>
-                                                <p className="col-sm-4 text-end">
-                                                    {grocery.totalPrice.toFixed(
-                                                        2
-                                                    )}{" "}
-                                                    $
-                                                </p>
+                                                <div className="ms-2 me-auto">
+                                                    <div className="fw-bold">
+                                                        {grocery.name}
+                                                    </div>
+                                                    <span className="badge bg-primary rounded-pill">
+                                                        {grocery.totalPrice.toFixed(
+                                                            2
+                                                        )}{" "}
+                                                        $
+                                                    </span>
+                                                </div>
+                                                <button
+                                                    className="btn btn-primary"
+                                                    onClick={() =>
+                                                        handleGetGrocery(
+                                                            grocery
+                                                        )
+                                                    }
+                                                >
+                                                    Détail
+                                                </button>
                                             </div>
                                         ))
                                 )}
