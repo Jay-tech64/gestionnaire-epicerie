@@ -8,9 +8,11 @@ const UserStats = () => {
     const { groceries } = useFetchUserGroceries();
     const email = localStorage.getItem("userEmail");
     const [sumTotalPrices, setSumTotalPrices] = useState("");
-    const data = groceries.map((grocery) => {
-        return { name: grocery.name, value: grocery.totalPrice };
-    });
+    const data = groceries
+        .filter((entry) => !entry.isCompleted)
+        .map((grocery) => {
+            return { name: grocery.name, value: grocery.totalPrice };
+        });
     const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
     const RADIAN = Math.PI / 180;
 
