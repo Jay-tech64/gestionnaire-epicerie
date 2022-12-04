@@ -32,6 +32,14 @@ const SharedGroceries = ({ user }) => {
         });
     };
 
+    function isInProgressListEmpty() {
+        return groceries.filter((entry) => !entry.isCompleted).length === 0;
+    }
+
+    function isCompletedListEmpty() {
+        return groceries.filter((entry) => entry.isCompleted).length === 0;
+    }
+
     return (
         <main className={"divStyles d-flex justify-content-center p-3"}>
             <div
@@ -57,58 +65,86 @@ const SharedGroceries = ({ user }) => {
 
                         <TabPanel>
                             <>
-                                {groceries
-                                    .filter((entry) => !entry.isCompleted)
-                                    .map((grocery, index) => (
-                                        <div
-                                            key={index}
-                                            className={
-                                                "d-flex justify-content-between align-items-center rounded py-2 px-3 mb-2"
-                                            }
-                                            style={{
-                                                border: "1px solid black",
-                                            }}
-                                            onClick={() =>
-                                                handleGetGrocery(grocery)
-                                            }
-                                        >
-                                            <p className="col-sm-8">
-                                                {grocery.name}
-                                            </p>
-                                            <p className="col-sm-4 text-end">
-                                                {grocery.totalPrice.toFixed(2)}{" "}
-                                                $
-                                            </p>
-                                        </div>
-                                    ))}
+                                {isInProgressListEmpty() ? (
+                                    <p
+                                        style={{
+                                            fontFamily:
+                                                "'Fuzzy Bubbles', cursive",
+                                            fontSize: "20px",
+                                        }}
+                                    >
+                                        Aucune épicerie pour l'instant
+                                    </p>
+                                ) : (
+                                    groceries
+                                        .filter((entry) => !entry.isCompleted)
+                                        .map((grocery, index) => (
+                                            <div
+                                                key={index}
+                                                className={
+                                                    "d-flex justify-content-between align-items-center rounded py-2 px-3 mb-2"
+                                                }
+                                                style={{
+                                                    border: "1px solid black",
+                                                }}
+                                                onClick={() =>
+                                                    handleGetGrocery(grocery)
+                                                }
+                                            >
+                                                <p className="col-sm-8">
+                                                    {grocery.name}
+                                                </p>
+                                                <p className="col-sm-4 text-end">
+                                                    {grocery.totalPrice.toFixed(
+                                                        2
+                                                    )}{" "}
+                                                    $
+                                                </p>
+                                            </div>
+                                        ))
+                                )}
                             </>
                         </TabPanel>
                         <TabPanel>
                             <>
-                                {groceries
-                                    .filter((entry) => entry.isCompleted)
-                                    .map((grocery, index) => (
-                                        <div
-                                            key={index}
-                                            className={
-                                                "d-flex justify-content-between align-items-center rounded py-2 px-3 mb-2"
-                                            }
-                                            style={{
-                                                border: "1px solid black",
-                                            }}
-                                            onClick={() =>
-                                                handleGetGrocery(grocery)
-                                            }
-                                        >
-                                            <p className="col-sm-8">
-                                                {grocery.name}
-                                            </p>
-                                            <p className="col-sm-4 text-end">
-                                                {grocery.totalPrice.toFixed(2)}{" "}
-                                                $
-                                            </p>
-                                        </div>
-                                    ))}
+                                {isCompletedListEmpty() ? (
+                                    <p
+                                        style={{
+                                            fontFamily:
+                                                "'Fuzzy Bubbles', cursive",
+                                            fontSize: "20px",
+                                        }}
+                                    >
+                                        Aucune épicerie pour l'instant
+                                    </p>
+                                ) : (
+                                    groceries
+                                        .filter((entry) => entry.isCompleted)
+                                        .map((grocery, index) => (
+                                            <div
+                                                key={index}
+                                                className={
+                                                    "d-flex justify-content-between align-items-center rounded py-2 px-3 mb-2"
+                                                }
+                                                style={{
+                                                    border: "1px solid black",
+                                                }}
+                                                onClick={() =>
+                                                    handleGetGrocery(grocery)
+                                                }
+                                            >
+                                                <p className="col-sm-8">
+                                                    {grocery.name}
+                                                </p>
+                                                <p className="col-sm-4 text-end">
+                                                    {grocery.totalPrice.toFixed(
+                                                        2
+                                                    )}{" "}
+                                                    $
+                                                </p>
+                                            </div>
+                                        ))
+                                )}
                             </>
                         </TabPanel>
                     </Tabs>
