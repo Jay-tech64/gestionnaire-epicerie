@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 import useFetchUserGroceries from "../hooks/useFetchUserGroceries";
+import React from "react";
+import loupe from "../assets/loupe.png";
 
 const GroceriesHistory = () => {
     const { groceries } = useFetchUserGroceries();
@@ -22,6 +24,10 @@ const GroceriesHistory = () => {
         });
     };
 
+    function isCompletedListEmpty() {
+        return groceries.filter((entry) => entry.isCompleted).length === 0;
+    }
+
     return (
         <main className={"divStyles d-flex justify-content-center p-3"}>
             <div
@@ -38,32 +44,54 @@ const GroceriesHistory = () => {
                     </button>
                     <h1 className="text-center">Historique</h1>
                 </div>
-                <section className="d-flex col justify-content-center rounded">
-                    <article
-                        id="groceriesList"
-                        className="m-3 p-2 h-90 col bg-white"
-                    >
-                        <ul className="mx-3">
-                            {groceries
-                                .filter((entry) => entry.isCompleted)
-                                .map((grocery, i) => (
-                                    <li
-                                        key={i}
-                                        className="row"
+                <section className={"flex-fill"}>
+                    {isCompletedListEmpty() ? (
+                        <div
+                            className={
+                                "d-flex flex-column align-items-center justify-content-center h-100"
+                            }
+                        >
+                            <img
+                                className={"mb-3"}
+                                src={loupe}
+                                alt={"Icône d'une famille"}
+                            />
+                            <p
+                                style={{
+                                    fontFamily: "'Fuzzy Bubbles', cursive",
+                                    fontSize: "20px",
+                                }}
+                            >
+                                Aucune historique pour le moment
+                            </p>
+                        </div>
+                    ) : (
+                        groceries
+                            .filter((entry) => entry.isCompleted)
+                            .map((grocery, i) => (
+                                <div
+                                    className="d-flex justify-content-between align-items-center form-control my-2"
+                                    key={i}
+                                >
+                                    <div className="ms-2 me-auto">
+                                        <div className="fw-bold">
+                                            {grocery.name}
+                                        </div>
+                                        <span className="badge bg-primary rounded-pill">
+                                            {grocery.totalPrice.toFixed(2)} $
+                                        </span>
+                                    </div>
+                                    <button
+                                        className="btn btn-primary"
                                         onClick={() =>
                                             handleGetGrocery(grocery)
                                         }
                                     >
-                                        <p className="col-sm-8">
-                                            {grocery.name}
-                                        </p>
-                                        <p className="col-sm-4 text-end">
-                                            {grocery.totalPrice.toFixed(2)} $
-                                        </p>
-                                    </li>
-                                ))}
-                        </ul>
-                    </article>
+                                        Détail
+                                    </button>
+                                </div>
+                            ))
+                    )}
                 </section>
             </div>
         </main>

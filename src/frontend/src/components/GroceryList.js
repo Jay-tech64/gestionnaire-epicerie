@@ -6,7 +6,6 @@ import {
     faTrash,
     faClipboardCheck,
     faCircleQuestion,
-    faShareNodes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
@@ -72,7 +71,9 @@ const GroceryList = ({
 
                     <Dropdown
                         style={
-                            isDeletable
+                            isCompleted
+                                ? { visibility: "hidden" }
+                                : isDeletable
                                 ? { visibility: "visible" }
                                 : { visibility: "hidden" }
                         }
@@ -85,33 +86,21 @@ const GroceryList = ({
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu variant="dark">
-                            {!isCompleted && (
-                                <Dropdown.Item onClick={confirmComplete}>
-                                    <FontAwesomeIcon
-                                        icon={faClipboardCheck}
-                                        className={"me-2"}
-                                    />
-                                    Compléter l'épicerie
-                                </Dropdown.Item>
-                            )}
-                            <Dropdown.Item
-                                onClick={() => console.log("Partager")}
-                            >
+                            <Dropdown.Item onClick={confirmComplete}>
                                 <FontAwesomeIcon
-                                    icon={faShareNodes}
+                                    icon={faClipboardCheck}
                                     className={"me-2"}
                                 />
-                                Partager l'épicerie
+                                Compléter l'épicerie
                             </Dropdown.Item>
-                            {!isCompleted && (
-                                <Dropdown.Item onClick={confirmDelete}>
-                                    <FontAwesomeIcon
-                                        icon={faTrash}
-                                        className={"me-2"}
-                                    />
-                                    Supprimer l'épicerie
-                                </Dropdown.Item>
-                            )}
+
+                            <Dropdown.Item onClick={confirmDelete}>
+                                <FontAwesomeIcon
+                                    icon={faTrash}
+                                    className={"me-2"}
+                                />
+                                Supprimer l'épicerie
+                            </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
