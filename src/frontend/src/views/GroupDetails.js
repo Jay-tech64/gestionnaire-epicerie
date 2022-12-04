@@ -24,6 +24,7 @@ const GroupDetails = ({
     changeUserToAdd,
     errorMessage,
 }) => {
+    const currentUserEmail = localStorage.getItem("userEmail");
     const history = useHistory();
 
     function isOwner(member) {
@@ -95,19 +96,20 @@ const GroupDetails = ({
                                 </div>
                                 <p className={"m-0"}>{member?.owner?.email}</p>
                             </div>
-                            {member?.isActive && (
-                                <Link
-                                    to={{
-                                        pathname: "/shared-groceries",
-                                        state: {
-                                            user: member?.owner,
-                                        },
-                                    }}
-                                    className={"btn btn-primary"}
-                                >
-                                    Voir épiceries
-                                </Link>
-                            )}
+                            {member?.isActive &&
+                                currentUserEmail !== member?.owner?.email && (
+                                    <Link
+                                        to={{
+                                            pathname: "/shared-groceries",
+                                            state: {
+                                                user: member?.owner,
+                                            },
+                                        }}
+                                        className={"btn btn-primary"}
+                                    >
+                                        Voir épiceries
+                                    </Link>
+                                )}
                             {!isOwner(member) && !member?.isActive && (
                                 <p className={"m-0"}>
                                     En attente d'approbation
