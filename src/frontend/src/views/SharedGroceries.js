@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { getGroceriesByUser } from "../services/GroceryService";
 import { useHistory } from "react-router-dom";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 const SharedGroceries = ({ user }) => {
     const [groceries, setGroceries] = useState([]);
@@ -47,44 +49,69 @@ const SharedGroceries = ({ user }) => {
                     <h1 className="text-center">Épiceries de {user?.name}</h1>
                 </header>
                 <section className={"mb-4"}>
-                    <h2>En cours</h2>
-                    {groceries
-                        .filter((entry) => !entry.isCompleted)
-                        .map((grocery, index) => (
-                            <div
-                                key={index}
-                                className={
-                                    "d-flex justify-content-between align-items-center rounded py-2 px-3 mb-2"
-                                }
-                                style={{ border: "1px solid black" }}
-                                onClick={() => handleGetGrocery(grocery)}
-                            >
-                                <p className="col-sm-8">{grocery.name}</p>
-                                <p className="col-sm-4 text-end">
-                                    {grocery.totalPrice.toFixed(2)} $
-                                </p>
-                            </div>
-                        ))}
-                </section>
-                <section>
-                    <h2>Complétées</h2>
-                    {groceries
-                        .filter((entry) => entry.isCompleted)
-                        .map((grocery, index) => (
-                            <div
-                                key={index}
-                                className={
-                                    "d-flex justify-content-between align-items-center rounded py-2 px-3 mb-2"
-                                }
-                                style={{ border: "1px solid black" }}
-                                onClick={() => handleGetGrocery(grocery)}
-                            >
-                                <p className="col-sm-8">{grocery.name}</p>
-                                <p className="col-sm-4 text-end">
-                                    {grocery.totalPrice.toFixed(2)} $
-                                </p>
-                            </div>
-                        ))}
+                    <Tabs>
+                        <TabList>
+                            <Tab>En cours</Tab>
+                            <Tab>Complétées</Tab>
+                        </TabList>
+
+                        <TabPanel>
+                            <>
+                                {groceries
+                                    .filter((entry) => !entry.isCompleted)
+                                    .map((grocery, index) => (
+                                        <div
+                                            key={index}
+                                            className={
+                                                "d-flex justify-content-between align-items-center rounded py-2 px-3 mb-2"
+                                            }
+                                            style={{
+                                                border: "1px solid black",
+                                            }}
+                                            onClick={() =>
+                                                handleGetGrocery(grocery)
+                                            }
+                                        >
+                                            <p className="col-sm-8">
+                                                {grocery.name}
+                                            </p>
+                                            <p className="col-sm-4 text-end">
+                                                {grocery.totalPrice.toFixed(2)}{" "}
+                                                $
+                                            </p>
+                                        </div>
+                                    ))}
+                            </>
+                        </TabPanel>
+                        <TabPanel>
+                            <>
+                                {groceries
+                                    .filter((entry) => entry.isCompleted)
+                                    .map((grocery, index) => (
+                                        <div
+                                            key={index}
+                                            className={
+                                                "d-flex justify-content-between align-items-center rounded py-2 px-3 mb-2"
+                                            }
+                                            style={{
+                                                border: "1px solid black",
+                                            }}
+                                            onClick={() =>
+                                                handleGetGrocery(grocery)
+                                            }
+                                        >
+                                            <p className="col-sm-8">
+                                                {grocery.name}
+                                            </p>
+                                            <p className="col-sm-4 text-end">
+                                                {grocery.totalPrice.toFixed(2)}{" "}
+                                                $
+                                            </p>
+                                        </div>
+                                    ))}
+                            </>
+                        </TabPanel>
+                    </Tabs>
                 </section>
             </div>
         </main>
