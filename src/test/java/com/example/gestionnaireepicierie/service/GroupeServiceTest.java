@@ -1,6 +1,8 @@
 package com.example.gestionnaireepicierie.service;
 
 import com.example.gestionnaireepicierie.controllers.payload.request.NewGroupDto;
+import com.example.gestionnaireepicierie.controllers.payload.response.GroupDto;
+import com.example.gestionnaireepicierie.controllers.payload.response.MembershipDto;
 import com.example.gestionnaireepicierie.controllers.payload.response.UserDto;
 import com.example.gestionnaireepicierie.entities.Group;
 import com.example.gestionnaireepicierie.entities.Membership;
@@ -56,10 +58,10 @@ public class GroupeServiceTest {
         when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
         // Act
-        Group group = groupService.createGroup(mockNewGroupDto);
+        GroupDto group = groupService.createGroup(mockNewGroupDto);
 
         // Assert
-        assertThat(group.getMembers().size()).isEqualTo(1);
+        assertThat(group.members().size()).isEqualTo(1);
     }
 
     @Test
@@ -149,7 +151,7 @@ public class GroupeServiceTest {
         mockGroup.setId(1L);
         when(groupRepository.findGroupById(anyLong())).thenReturn(Optional.of(mockGroup));
 
-        List<Membership> userDtos = groupService.getMembersByGroup(mockGroup.getId());
+        List<MembershipDto> userDtos = groupService.getMembersByGroup(mockGroup.getId());
 
         assertThat(userDtos.size()).isEqualTo(2);
     }

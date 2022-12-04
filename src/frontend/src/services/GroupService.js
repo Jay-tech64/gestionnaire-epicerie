@@ -33,3 +33,9 @@ export const declineInvitation = async (groupId, dto) => {
         headers: { "Content-Type": "application/json" },
     });
 };
+
+export const getMembersByGroup = async (groupId) => {
+    return axios.get(`/groups/${groupId}/get-members`, {
+        headers: { "Content-Type": "application/json" },
+    });
+};

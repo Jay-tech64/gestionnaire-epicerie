@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GroupDetails from "../views/GroupDetails";
 import { useLocation } from "react-router-dom";
-import { getMembersByGroup } from "../services/GroceryService";
+import { getMembersByGroup } from "../services/GroupService";
 import { addUserToGroup } from "../services/GroupService";
 
 const GroupDetailsContainer = () => {
@@ -11,14 +11,13 @@ const GroupDetailsContainer = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const location = useLocation();
     const { state } = location;
-    const groupId = state?.id;
+    const groupId = state?.groupId;
     const groupName = state?.name;
     const owner = state?.owner;
 
     useEffect(() => {
         getMembersByGroup(groupId)
             .then((response) => {
-                console.log(response.data);
                 setMembers(response.data);
             })
             .catch((err) => {

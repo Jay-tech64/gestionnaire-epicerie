@@ -2,6 +2,9 @@ package com.example.gestionnaireepicierie.services;
 
 import com.example.gestionnaireepicierie.controllers.payload.request.InvitationResponseDto;
 import com.example.gestionnaireepicierie.controllers.payload.request.NewGroupDto;
+import com.example.gestionnaireepicierie.controllers.payload.response.GroupDto;
+import com.example.gestionnaireepicierie.controllers.payload.response.MembershipDto;
+import com.example.gestionnaireepicierie.controllers.payload.response.UserDto;
 import com.example.gestionnaireepicierie.entities.Group;
 import com.example.gestionnaireepicierie.entities.Membership;
 import com.example.gestionnaireepicierie.entities.Notification;
@@ -27,24 +30,42 @@ public class GroupService {
 
     private MembershipRepository membershipRepository;
 
-    public Group createGroup(NewGroupDto dto) {
+    public GroupDto createGroup(NewGroupDto dto) {
         User owner = userRepository.findUserByEmail(dto.owner().email())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         Group group = new Group(dto.name(), owner);
         groupRepository.save(group);
-        return group;
+        return new GroupDto(
+                group.getId(),
+                group.getName(),
+                new UserDto(group.getOwner().getName(), group.getOwner().getEmail()),
+                group.getMembers().stream().map(membership -> new UserDto(
+                                membership.getOwner().getName(), membership.getOwner().getEmail())
+                ).toList()
+        );
     }
 
-    public List<Group> getGroupsByUser(String email) {
+    public List<GroupDto> getGroupsByUser(String email) {
         User user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         List<Membership> membershipList = membershipRepository.getMembershipsByOwner(user);
 
-        return membershipList.stream().map(Membership::getProvider).toList();
+        return membershipList.stream().map(membership ->
+                new GroupDto(
+                        membership.getProvider().getId(),
+                        membership.getProvider().getName(),
+                        new UserDto(
+                                membership.getProvider().getOwner().getName(),
+                                membership.getProvider().getOwner().getEmail()),
+                        membership.getProvider().getMembers().stream().map(membership1 ->
+                                new UserDto(
+                                        membership1.getOwner().getName(),
+                                        membership1.getOwner().getEmail())).toList()
+                )).toList();
     }
 
-    public Membership addUserToGroup(long groupId, String email) {
+    public MembershipDto addUserToGroup(long groupId, String email) {
         User user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Group group = groupRepository.findGroupById(groupId)
@@ -60,13 +81,21 @@ public class GroupService {
         notificationRepository.save(notification);
         group.getMembers().add(membership);
         groupRepository.save(group);
-        return membership;
+        return new MembershipDto(
+                membership.getIsActive(),
+                new UserDto(
+                        membership.getOwner().getName(),
+                        membership.getOwner().getEmail()));
     }
 
-    public List<Membership> getMembersByGroup(long groupId) {
+    public List<MembershipDto> getMembersByGroup(long groupId) {
         Group group = groupRepository.findGroupById(groupId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return group.getMembers();
+        return group.getMembers().stream().map(membership ->
+                new MembershipDto(
+                        membership.getIsActive(),
+                        new UserDto(membership.getOwner().getName(), membership.getOwner().getEmail())))
+                .toList();
     }
 
     @Transactional
