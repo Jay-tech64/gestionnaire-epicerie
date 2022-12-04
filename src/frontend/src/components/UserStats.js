@@ -57,7 +57,11 @@ const UserStats = () => {
                 <h1 className="fs-3">Statistiques</h1>
             </div>
             {sumTotalPrices ? (
-                <div>
+                <div
+                    className={
+                        "d-flex flex-column justify-content-center align-items-center"
+                    }
+                >
                     <p
                         className={"fs-4 m-0"}
                         style={{
@@ -87,14 +91,14 @@ const UserStats = () => {
                         </Pie>
                     </PieChart>
                     <p
-                        className={"fs-4 m-0"}
+                        className={"fs-4 m-0 me-auto"}
                         style={{
                             fontFamily: "'Fuzzy Bubbles', cursive",
                         }}
                     >
                         Sommes de toutes les épiceries :
                     </p>
-                    <p>{sumTotalPrices.toFixed(2)} $</p>
+                    <p className={"me-auto"}>{sumTotalPrices.toFixed(2)} $</p>
                 </div>
             ) : (
                 <div
