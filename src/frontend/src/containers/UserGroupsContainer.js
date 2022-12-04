@@ -20,7 +20,7 @@ const UserGroupsContainer = () => {
     useEffect(() => {
         getGroupsByUser(email)
             .then((response) => {
-                console.log("allo", response.data);
+                console.log(response.data);
                 setUserGroups(response.data);
             })
             .catch((err) => {
@@ -66,7 +66,6 @@ const UserGroupsContainer = () => {
 
         createGroup(dto)
             .then((response) => {
-                console.log("wazza", response.data);
                 setUserGroups([...userGroups, response.data]);
                 setModalValue("");
                 setShow(false);

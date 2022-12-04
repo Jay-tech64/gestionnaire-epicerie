@@ -40,7 +40,7 @@ const GroupDetailsContainer = () => {
                 }
                 if (err.response.status === 409) {
                     setErrorMessage(
-                        "Vous ne pouvez pas vous invitez vous-même. ¯\\_(ツ)_/¯"
+                        "Cet utilisateur est déjà dans le groupe ou est déjà en attente d'approbation."
                     );
                 }
             });
