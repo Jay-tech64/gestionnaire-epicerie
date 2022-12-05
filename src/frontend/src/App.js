@@ -42,6 +42,9 @@ function App() {
                     <Route path="/shared-groceries">
                         <SharedGroceriesContainer />
                     </Route>
+                    <Route path="/error">
+                        <NotFound />
+                    </Route>
                     <Route path="*">
                         <NotFound />
                     </Route>
