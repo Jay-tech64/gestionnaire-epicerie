@@ -30,7 +30,6 @@ target/
 
 # Prettier IntelliJ
 node_modules
-package.json
 package-lock.json
 
 ### STS ###
