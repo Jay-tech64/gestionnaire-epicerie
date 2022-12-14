@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "GROUPS")
+@Table(name = "GROCERY_GROUP")
 @Data
 @NoArgsConstructor
 public class Group {
